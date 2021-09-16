@@ -17,3 +17,9 @@ body {
     width: 1000px;
     margin: 0 auto;
 }
+.entry {
+    border: #000 1px solid;
+    border-radius: 9px;
+    padding: 10px;
+    margin: 20px 0;
+}
