@@ -2,6 +2,12 @@
 {% block title %} Main page{% endblock %}
 {% block content %}
     {% for issue in issues %}
-        <p>{{ issue.summary }}</p>
+        <div class="entry">
+            <h3>{{ issue.summary }}</h3>
+            <p>{{ issue.type }} - {{ issue.status }}</p>
+            <a href="{% url 'issue' issue.pk %}">View</a>
+            <a href="{% url 'edit_issue' issue.pk %}">Edit</a>
+            <a href="{% url 'delete_issue' issue.pk %}">Delete</a>
+        </div>
     {% endfor %}
 {% endblock %}

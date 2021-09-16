@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Edit issue{% endblock %}
 {% block content %}
-edit
+    <h2>Edit issue {{ issue.id }}</h2>
+    <form method="POST" action="{% url "edit_issue" issue.pk %}" novalidate>
+        {% include "partial/issue_form.html" with button_text=" Add" %}
+    </form>
 {% endblock %}

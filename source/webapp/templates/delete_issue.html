@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Delete issue{% endblock %}
 {% block content %}
-delete
+    <h2>Are you sure want to remove issue [{{ issue.pk }} - {{ issue.summary }}]?</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button class="form-btn" type="submit"> Yes</button>
+        <a class="form-btn" href="{% url 'index' %}">No</a>
+    </form>
 {% endblock %}
