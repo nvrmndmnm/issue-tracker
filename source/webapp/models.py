@@ -3,7 +3,7 @@ from django.db import models
 
 class Issue(models.Model):
     summary = models.CharField(max_length=150, verbose_name='Summary')
-    description = models.CharField(max_length=2000, verbose_name='Description')
+    description = models.TextField(max_length=2000, verbose_name='Description')
     status = models.ForeignKey('webapp.IssueStatus', on_delete=models.RESTRICT,
                                verbose_name='Status', related_name='statuses')
     type = models.ForeignKey('webapp.IssueType', on_delete=models.RESTRICT,
@@ -18,6 +18,12 @@ class Issue(models.Model):
 class IssueType(models.Model):
     name = models.CharField(max_length=30, verbose_name='Type')
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class IssueStatus(models.Model):
     name = models.CharField(max_length=30, verbose_name='Status')
+
+    def __str__(self):
+        return f"{self.name}"

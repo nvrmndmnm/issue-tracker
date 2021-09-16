@@ -1,0 +1,134 @@
+[
+{
+  "model": "webapp.issue",
+  "pk": 1,
+  "fields": {
+    "summary": "Dumper truck dodgems",
+    "description": "Dodgem car ride with 60-tonne dumper trucks. This will allow us to reuse leftover dumper trucks from the construction phase, thereby reducing waste and helping to protect the environment.",
+    "status": 1,
+    "type": 1,
+    "time_created": "2021-09-16T11:46:08.011Z",
+    "time_updated": "2021-09-16T11:53:00.726Z"
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 2,
+  "fields": {
+    "summary": "Reinforced boundary walls",
+    "description": "We need heavily reinforced boundary walls to keep the dumper trucks inside the designated area.",
+    "status": 1,
+    "type": 3,
+    "time_created": "2021-09-16T11:53:33.193Z",
+    "time_updated": "2021-09-16T11:53:33.193Z"
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 3,
+  "fields": {
+    "summary": "Better usability of the Self-Destruct Button",
+    "description": "Why should the user go through all these confirmation dialogs?",
+    "status": 2,
+    "type": 3,
+    "time_created": "2021-09-16T11:54:01.107Z",
+    "time_updated": "2021-09-16T11:54:01.107Z"
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 4,
+  "fields": {
+    "summary": "Walls are breachable",
+    "description": "it's too easy to fly there on a small battleship",
+    "status": 3,
+    "type": 2,
+    "time_created": "2021-09-16T11:54:44.950Z",
+    "time_updated": "2021-09-16T11:54:44.950Z"
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 5,
+  "fields": {
+    "summary": "Static discharge problem",
+    "description": "For some reason, static charge accumulates on the control handles and strikes me every time I command the drive. That is so cruel!",
+    "status": 2,
+    "type": 2,
+    "time_created": "2021-09-16T11:55:09.993Z",
+    "time_updated": "2021-09-16T11:55:09.993Z"
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 6,
+  "fields": {
+    "summary": "Secret button to shut down the Rebels hyperdrive",
+    "description": "This would be real nice!",
+    "status": 3,
+    "type": 1,
+    "time_created": "2021-09-16T11:55:10.021Z",
+    "time_updated": "2021-09-16T11:55:45.159Z"
+  }
+},
+{
+  "model": "webapp.issuetype",
+  "pk": 1,
+  "fields": {
+    "name": "Task"
+  }
+},
+{
+  "model": "webapp.issuetype",
+  "pk": 2,
+  "fields": {
+    "name": "Bug"
+  }
+},
+{
+  "model": "webapp.issuetype",
+  "pk": 3,
+  "fields": {
+    "name": "Enhancement"
+  }
+},
+{
+  "model": "webapp.issuestatus",
+  "pk": 1,
+  "fields": {
+    "name": "New"
+  }
+},
+{
+  "model": "webapp.issuestatus",
+  "pk": 2,
+  "fields": {
+    "name": "In Progress"
+  }
+},
+{
+  "model": "webapp.issuestatus",
+  "pk": 3,
+  "fields": {
+    "name": "Done"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$bqCTd9MJNCPpVmAbfwLz8a$Hx5o2ddapvkMElYfjtwt7otyUIpexEDPqq1J+sqnoXk=",
+    "last_login": "2021-09-16T11:40:48.616Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-09-16T11:40:42.763Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

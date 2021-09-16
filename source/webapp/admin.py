@@ -3,10 +3,10 @@ from webapp.models import Issue, IssueType, IssueStatus
 
 
 class IssueAdmin(admin.ModelAdmin):
-    list_display = ["id", "summary", "time_created"]
-    list_filter = ["id"]
+    list_display = ["id", "summary", "status", "type", "time_created"]
+    list_filter = ["status", "type"]
     search_fields = ["summary"]
-    fields = ["summary", "description", "time_created"]
+    fields = ["summary", "description", "status", "type", "time_created"]
     readonly_fields = ["time_created"]
 
 
