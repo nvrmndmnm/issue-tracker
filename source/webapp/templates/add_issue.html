@@ -2,7 +2,9 @@
 {% block title %}Add issue{% endblock %}
 {% block content %}
     <h2>Add new issue</h2>
-    <form method="POST" action="{% url "add_issue" %}" novalidate>
-        {% include "partial/issue_form.html" with button_text=" Add" %}
-    </form>
+    <div class="form-wrapper">
+        <form method="POST" action="{% url "add_issue" %}" novalidate>
+            {% include "partial/issue_form.html" with button_text=" Add" %}
+        </form>
+    </div>
 {% endblock %}

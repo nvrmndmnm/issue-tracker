@@ -23,3 +23,33 @@ body {
     padding: 10px;
     margin: 20px 0;
 }
+.form-wrapper {
+    width: 324px;
+}
+label {
+    font-size: 24px;
+    align-self: start;
+}
+input {
+    height: 24px;
+    width: 312px;
+    font-size: 24px;
+}
+select {
+    height: 30px;
+    width: 320px;
+    font-size: 24px;
+}
+textarea {
+    width: 315px;
+    height: 80px;
+}
+.form-error {
+    color: #ff3535;
+    margin: -10px 0 10px 5px;
+    font-size: 14px;
+}
+.field-error {
+    border: solid 1px #ff3535;
+    box-shadow: #ff3535 0 0 3px;
+}
