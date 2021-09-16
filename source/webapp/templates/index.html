@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %} Main page{% endblock %}
+{% block content %}
+    {% for issue in issues %}
+        <p>{{ issue.summary }}</p>
+    {% endfor %}
+{% endblock %}
