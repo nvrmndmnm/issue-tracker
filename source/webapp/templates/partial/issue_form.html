@@ -3,7 +3,7 @@
     <p class="form-error">{{ error }}</p>
 {% endfor %}
 {% for field in form %}
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between flex-wrap">
         <label class="me-3" for="{{ field.id_for_label }}">{{ field.label }}:</label>
         {% if field.errors %}
             <p class="field-error">{{ field }}</p>
