@@ -8,7 +8,10 @@ class IndexView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
-        kwargs["issues"] = Issue.objects.all()
+        if kwargs.get("status_pk"):
+            kwargs["issues"] = Issue.objects.all().filter(status_id=kwargs["status_pk"])
+        else:
+            kwargs["issues"] = Issue.objects.all()
         return super().get_context_data(**kwargs)
 
 

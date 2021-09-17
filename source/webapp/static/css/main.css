@@ -27,6 +27,9 @@ li a.btn-filters {
     text-decoration: none;
     padding: 5px 20px;
     margin: -5px 0;
+    background: url("img/logo.svg") no-repeat 20px center;
+    background-size: 30px 30px;
+    text-indent: 36px;
 }
 .btn-logo:hover {
     background-color: #3596ff;
@@ -57,10 +60,7 @@ li a.btn-filters {
 }
 .btn-action {
     font-size: 24px;
-    opacity: 65%;
-}
-.btn-action:hover {
-    opacity: 100%;
+    color: #9f9f9f;
 }
 .btn-collapse:focus {
     box-shadow: none;
@@ -73,6 +73,9 @@ li a.btn-filters {
 }
 .form-wrapper {
     width: 42%;
+}
+li label {
+    display: block;
 }
 label {
     font-size: 16px;

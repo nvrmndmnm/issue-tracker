@@ -8,67 +8,77 @@
             </div>
             <ul class="filters-list">
                 <li>
-                    <a class="btn-filters" href="#">All issues</a>
+                    <a class="btn-filters" href="{% url 'index' %}">All issues</a>
                 </li>
                 <li>
-                    <a class="btn-filters" href="#">New issues</a>
+                    <a class="btn-filters" href="{% url 'filter' 1 %}">New issues</a>
                 </li>
                 <li>
-                    <a class="btn-filters" href="#">Open issues</a>
+                    <a class="btn-filters" href="{% url 'filter' 2 %}">Open issues</a>
                 </li>
                 <li>
-                    <a class="btn-filters" href="#">Done issues</a>
+                    <a class="btn-filters" href="{% url 'filter' 3 %}">Done issues</a>
                 </li>
             </ul>
         </div>
         <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
             <div class="entries-nav">
-                <h2>All issues</h2>
+                {% if request.path == '/filter/1/'%}
+                    <h2>New issues</h2>
+                {% elif request.path == '/filter/2/'%}
+                    <h2>Open issues</h2>
+                {% elif request.path == '/filter/3/'%}
+                    <h2>Done issues</h2>
+                {% else %}
+                    <h2>All issues</h2>
+                {% endif %}
                 <hr>
             </div>
             <div class="entries-count mb-3">
                 <span>Total found: {{ issues|length }}</span>
             </div>
-            <table class="table px-4">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Summary</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Created</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for issue in issues %}
-                    <tr class="entry">
-                        <td>
-                            <a class="entry-title" href="{% url 'issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
-                        </td>
-                        <td>
-                            <a class="entry-title" href="{% url 'issue' issue.pk %}">{{ issue.summary }}</a>
-                        </td>
-                        <td>
-                            {% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        </td>
-                        <td>{{ issue.status }}</td>
-                        <td>{{ issue.time_created|date }}</td>
-                        <td>
-                            <div class="btns-action d-flex justify-content-around">
-                                <a class="btn-action me-2" href="{% url 'edit_issue' issue.pk %}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a class="btn-action" href="{% url 'delete_issue' issue.pk %}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </div>
-                        </td>
+            {% if issues %}
+                <table class="table px-4">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Summary</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for issue in issues %}
+                        <tr class="entry">
+                            <td>
+                                <a class="entry-title" href="{% url 'issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
+                            </td>
+                            <td>
+                                <a class="entry-title" href="{% url 'issue' issue.pk %}">{{ issue.summary }}</a>
+                            </td>
+                            <td>
+                                {% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ issue.status }}</td>
+                            <td>{{ issue.time_created|date }}</td>
+                            <td>
+                                <div class="btns-action d-flex justify-content-around">
+                                    <a class="btn-action me-2" href="{% url 'edit_issue' issue.pk %}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn-action" href="{% url 'delete_issue' issue.pk %}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
