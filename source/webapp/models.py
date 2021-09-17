@@ -6,8 +6,8 @@ class Issue(models.Model):
     description = models.TextField(max_length=2000, verbose_name='Description')
     status = models.ForeignKey('webapp.IssueStatus', on_delete=models.RESTRICT,
                                verbose_name='Status', related_name='statuses')
-    type = models.ForeignKey('webapp.IssueType', on_delete=models.RESTRICT,
-                             verbose_name='Type', related_name='types')
+    types = models.ManyToManyField('webapp.IssueType', verbose_name='Types',
+                                   related_name='types')
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
