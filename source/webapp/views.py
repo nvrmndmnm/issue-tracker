@@ -30,7 +30,9 @@ class AddIssueView(View):
         form = IssueForm(data=request.POST)
         context = {"form": form}
         if form.is_valid():
+            types = form.cleaned_data.pop('types')
             issue = Issue.objects.create(**form.cleaned_data)
+            issue.types.set(types)
             return redirect('issue', pk=issue.pk)
         else:
             return render(request, "add_issue.html", context)
@@ -54,7 +56,7 @@ class EditIssueView(View):
         context = {"form": form}
         if form.is_valid():
             issue.summary = form.cleaned_data['summary']
-            issue.type = form.cleaned_data['type']
+            issue.types.set(form.cleaned_data['types'])
             issue.status = form.cleaned_data['status']
             issue.description = form.cleaned_data['description']
             issue.save()

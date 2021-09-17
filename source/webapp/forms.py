@@ -7,11 +7,11 @@ class IssueForm(forms.Form):
     summary = forms.CharField(max_length=150,
                               required=True,
                               label="Summary")
-    type = forms.ModelMultipleChoiceField(queryset=IssueType.objects.all(),
-                                          widget=forms.CheckboxSelectMultiple,
-                                          required=True,
-                                          initial=IssueType.objects.first(),
-                                          label="Type")
+    types = forms.ModelMultipleChoiceField(queryset=IssueType.objects.all(),
+                                           widget=forms.CheckboxSelectMultiple,
+                                           required=True,
+                                           initial=IssueType.objects.first(),
+                                           label="Type")
     status = forms.ModelChoiceField(queryset=IssueStatus.objects.all(),
                                     required=True,
                                     initial=IssueStatus.objects.first(),
