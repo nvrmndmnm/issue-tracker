@@ -2,6 +2,12 @@
 {% block title %}Issue {{ issue.id }} - {{ issue.summary }}{% endblock %}
 {% block content %}
     <div class="wrapper mt-4 ps-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Issues</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'issue' issue.pk %}">ID-{{ issue.pk }}</a></li>
+            </ol>
+        </nav>
         <h2>{{ issue.summary }}</h2>
         <div class="btns-control mt-3">
             <a class="btn form-btn me-2" href="{% url 'edit_issue' issue.pk %}">Edit
@@ -25,7 +31,12 @@
             <div class="collapse multi-collapse show" id="details">
                 <div class="card card-body rounded-0 d-flex flex-row">
                     <div class="col">
-                        <p><strong>Type: </strong>{% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                        <p>
+                            <strong>Type: </strong>
+                            {% for type in issue.types.all %}
+                                {{ type }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
                         <p><strong>Status: </strong>{{ issue.status }}</p>
                     </div>
                     <div class="col">
