@@ -3,7 +3,21 @@ body {
     margin: 0;
 }
 a {
+    color: #42526e;
+    display: block;
     text-decoration: none;
+}
+a:hover {
+    color: #5a5e70;
+}
+ul {
+    list-style: none;
+}
+ul li {
+    padding: 5px;
+}
+ul li:hover, .entry:hover {
+    background-color: #f3f3f3;
 }
 .btn-logo {
     font-size: 24px;
@@ -30,33 +44,57 @@ a {
     align-items: center;
 }
 .filters-list {
-    list-style: none;
     padding: 0;
 }
 .content {
     width: 1200px;
     margin: 0 auto;
 }
+.entry-title:hover {
+    text-decoration: underline;
+}
+.btn-action {
+    font-size: 24px;
+    opacity: 65%;
+}
+.btn-action:hover {
+    opacity: 100%;
+}
+.btn-collapse:focus {
+    box-shadow: none;
+}
+.btn-collapse:hover {
+    background-color: #f3f3f3;
+}
+.collapsed>svg {
+    transform: rotate(-90deg);
+}
 .form-wrapper {
-    width: 324px;
+    width: 42%;
 }
 label {
     font-size: 16px;
     align-self: start;
 }
-input {
-    height: 16px;
-    width: 312px;
-    font-size: 16px;
+input[type=text] {
+    width: 316px;
 }
 select {
     height: 30px;
     width: 320px;
-    font-size: 16px;
+}
+ul[id=id_types] {
+    width: 60%;
 }
 textarea {
-    width: 315px;
+    width: 320px;
     height: 80px;
+}
+.form-btn {
+    background-color: #e3e3e3;
+}
+.form-btn:hover {
+    background-color: #f3f3f3;
 }
 .form-error {
     color: #ff3535;

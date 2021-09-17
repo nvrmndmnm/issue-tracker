@@ -3,17 +3,20 @@
     <p class="form-error">{{ error }}</p>
 {% endfor %}
 {% for field in form %}
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {% if field.errors %}
+    <div class="d-flex justify-content-between">
+        <label class="me-3" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+        {% if field.errors %}
             <p class="field-error">{{ field }}</p>
-        {% for error in field.errors %}
-            <p class="form-error">{{ error }}</p>
-        {% endfor %}
+            {% for error in field.errors %}
+                <p class="form-error">{{ error }}</p>
+            {% endfor %}
         {% else %}
             <p>{{ field }}</p>
-    {% endif %}
+        {% endif %}
+    </div>
 {% endfor %}
-<div class="form-buttons">
-    <button class="form-btn" type="submit">{{ button_text }}</button>
-        <a class="form-btn" href="{% url 'index' %}">Back</a>
+<hr>
+<div class="form-buttons d-flex justify-content-end">
+    <button class="btn form-btn me-3" type="submit">{{ button_text }}</button>
+    <a class="btn form-btn" href="{{request.META.HTTP_REFERER}}">Back</a>
 </div>

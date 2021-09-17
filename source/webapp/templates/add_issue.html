@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Add issue{% endblock %}
+{% block title %}Create issue{% endblock %}
 {% block content %}
-    <h2>Add new issue</h2>
-    <div class="form-wrapper">
+    <div class="form-wrapper mx-auto mt-4">
+        <h2>Create new issue</h2>
+        <hr class="mb-4">
         <form method="POST" action="{% url "add_issue" %}" novalidate>
-            {% include "partial/issue_form.html" with button_text=" Add" %}
+            {% include "partial/issue_form.html" with button_text="Create" %}
         </form>
     </div>
 {% endblock %}

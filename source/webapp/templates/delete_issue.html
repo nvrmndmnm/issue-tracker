@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}Delete issue{% endblock %}
 {% block content %}
-    <h2>Are you sure want to remove issue [{{ issue.pk }} - {{ issue.summary }}]?</h2>
-    <form action="" method="post">
-        {% csrf_token %}
-        <button class="form-btn" type="submit"> Yes</button>
-        <a class="form-btn" href="{% url 'index' %}">No</a>
-    </form>
+    <div class="form-wrapper mx-auto mt-4">
+        <h4 class="text-center">Are you sure want to remove issue [ID-{{ issue.pk }}]?</h4>
+        <hr class="mb-4">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-buttons d-flex justify-content-center">
+                <button class="btn form-btn me-3" type="submit"> Yes</button>
+                <a class="btn form-btn" href="{{request.META.HTTP_REFERER}}">No</a>
+            </div>
+        </form>
+    </div>
 {% endblock %}
