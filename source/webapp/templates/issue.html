@@ -2,7 +2,8 @@
 {% block title %}Issue {{ issue.id }} - {{ issue.summary }}{% endblock %}
 {% block content %}
     <h2>{{ issue.summary }}</h2>
-    <p>{{ issue.type }} - {{ issue.status }}</p>
+    <p>{% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    <p>{{ issue.status }}</p>
     <p>Created at: {{ issue.time_created }}</p>
     <p>{{ issue.description }}</p>
 {% endblock %}

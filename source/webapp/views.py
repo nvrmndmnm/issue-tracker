@@ -41,7 +41,7 @@ class EditIssueView(View):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         form = IssueForm(initial={
             'summary': issue.summary,
-            'type': issue.type,
+            'type': issue.types.all(),
             'status': issue.status,
             'description': issue.description
         })

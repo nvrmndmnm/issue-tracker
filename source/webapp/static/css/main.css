@@ -2,26 +2,40 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
 }
-.logo {
+a {
+    text-decoration: none;
+}
+.btn-logo {
     font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 20px;
+    margin: -5px 0;
+}
+.btn-logo:hover {
+    background-color: #3596ff;
+    color: #fff;
+    text-decoration: none;
+}
+.btn-nav {
+    background-color: #3596ff;
+}
+.btn-nav:hover {
+    background-color: #72b3ff;
 }
 .header {
-    width: 1000px;
-    margin: 0 auto;
-    padding-bottom: 30px;
+    width: 1200px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+}
+.filters-list {
+    list-style: none;
+    padding: 0;
 }
 .content {
-    width: 1000px;
+    width: 1200px;
     margin: 0 auto;
-}
-.entry {
-    border: #000 1px solid;
-    border-radius: 9px;
-    padding: 10px;
-    margin: 20px 0;
 }
 .form-wrapper {
     width: 324px;

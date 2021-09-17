@@ -1,13 +1,61 @@
 {% extends 'base.html' %}
 {% block title %} Main page{% endblock %}
 {% block content %}
-    {% for issue in issues %}
-        <div class="entry">
-            <h3>{{ issue.summary }}</h3>
-            <p>{{ issue.type }} - {{ issue.status }}</p>
-            <a href="{% url 'issue' issue.pk %}">View</a>
-            <a href="{% url 'edit_issue' issue.pk %}">Edit</a>
-            <a href="{% url 'delete_issue' issue.pk %}">Delete</a>
+    <div class="wrapper d-flex mt-4">
+        <div class="col-lg-2 col-xl-2 col-md-2 ps-4">
+            <div class="filters-heading">
+                <strong>Filters</strong>
+            </div>
+            <ul class="filters-list">
+                <li>
+                    <a href="#">All issues</a>
+                </li>
+                <li>
+                    <a href="#">New issues</a>
+                </li>
+                <li>
+                    <a href="#">Open issues</a>
+                </li>
+                <li>
+                    <a href="#">Done issues</a>
+                </li>
+            </ul>
         </div>
-    {% endfor %}
+        <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
+            <div class="entries-nav">
+                <h2>All issues</h2>
+                <hr>
+            </div>
+            <div class="entries-count">
+                <span>Total found: {{ issues|length }}</span>
+            </div>
+            <table class="table px-4">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for issue in issues %}
+                    <tr>
+                        <th scope="row"><a href="{% url 'issue' issue.pk %}">{{ forloop.counter }}</a></th>
+                        <td><a href="{% url 'issue' issue.pk %}">{{ issue.summary }}</a></td>
+                        <td>{% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+                        <td>{{ issue.status }}</td>
+                        <td>{{ issue.time_created|date }}</td>
+                        <td>
+                            <a href="{% url 'edit_issue' issue.pk %}">Edit</a>
+                            <a href="{% url 'delete_issue' issue.pk %}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
