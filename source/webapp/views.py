@@ -46,7 +46,7 @@ class EditIssueView(View):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         form = IssueForm(initial={
             'summary': issue.summary,
-            'type': issue.types.all(),
+            'types': issue.types.all(),
             'status': issue.status,
             'description': issue.description
         })
@@ -56,13 +56,13 @@ class EditIssueView(View):
     def post(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         form = IssueForm(data=request.POST)
-        context = {"form": form}
+        context = {"form": form, "issue": issue}
         if form.is_valid():
             issue.summary = form.cleaned_data['summary']
-            issue.types.set(form.cleaned_data['types'])
             issue.status = form.cleaned_data['status']
             issue.description = form.cleaned_data['description']
             issue.save()
+            issue.types.set(form.cleaned_data['types'])
         else:
             return render(request, "edit_issue.html", context)
         return redirect('issue', pk=issue.pk)
