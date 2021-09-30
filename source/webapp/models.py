@@ -1,11 +1,28 @@
+from django.core.validators import BaseValidator, RegexValidator
 from django.db import models
+from django.utils.deconstruct import deconstructible
+
+
+@deconstructible
+class MinValueValidator(BaseValidator):
+    message = 'Value "%(value)s" is %(show_value)d symbols long, while it should be at least %(limit_value)d symbols.'
+
+    def clean(self, x):
+        return len(x)
+
+    def compare(self, a, b):
+        return a < b
 
 
 class Issue(models.Model):
-    summary = models.CharField(max_length=150, verbose_name='Summary')
+    summary = models.CharField(max_length=150, verbose_name='Summary',
+                               validators=[MinValueValidator(5),
+                                           RegexValidator(regex='^[ a-zA-Z0-9]*$',
+                                                          message='Value should only contain Latin letters and numbers.'
+                                                          )])
     description = models.TextField(max_length=2000, verbose_name='Description')
     status = models.ForeignKey('webapp.IssueStatus', on_delete=models.RESTRICT,
-                               verbose_name='Status', related_name='statuses')
+                               default='webapp.IssueStatus', verbose_name='Status', related_name='statuses')
     types = models.ManyToManyField('webapp.IssueType', verbose_name='Types',
                                    related_name='types')
     time_created = models.DateTimeField(auto_now_add=True)

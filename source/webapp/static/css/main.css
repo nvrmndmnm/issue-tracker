@@ -94,6 +94,7 @@ ul[id=id_types] {
 textarea {
     width: 320px;
     height: 80px;
+    margin-bottom: -7px;
 }
 .form-btn {
     background-color: #e3e3e3;
