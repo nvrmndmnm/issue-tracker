@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, TemplateView
+from django.urls import reverse
+from django.views.generic import View, TemplateView, FormView
 from webapp.models import Issue
 from webapp.forms import IssueForm
 
@@ -23,49 +24,46 @@ class IssueView(TemplateView):
         return super().get_context_data(**kwargs)
 
 
-class AddIssueView(View):
-    def get(self, request, *args, **kwargs):
-        form = IssueForm()
-        context = {"form": form}
-        return render(request, "add_issue.html", context)
+class AddIssueView(FormView):
+    template_name = 'add_issue.html'
+    form_class = IssueForm
 
-    def post(self, request, *args, **kwargs):
-        form = IssueForm(data=request.POST)
-        context = {"form": form}
-        if form.is_valid():
-            types = form.cleaned_data.pop('types')
-            issue = Issue.objects.create(**form.cleaned_data)
-            issue.types.set(types)
-            return redirect('issue', pk=issue.pk)
-        else:
-            return render(request, "add_issue.html", context)
+    def form_valid(self, form):
+        self.issue = form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('issue', kwargs={'pk': self.issue.pk})
 
 
-class EditIssueView(View):
-    def get(self, request, *args, **kwargs):
-        issue = get_object_or_404(Issue, pk=kwargs['pk'])
-        form = IssueForm(initial={
-            'summary': issue.summary,
-            'types': issue.types.all(),
-            'status': issue.status,
-            'description': issue.description
-        })
-        context = {"form": form, "issue": issue}
-        return render(request, "edit_issue.html", context)
+class EditIssueView(FormView):
+    template_name = 'edit_issue.html'
+    form_class = IssueForm
 
-    def post(self, request, *args, **kwargs):
-        issue = get_object_or_404(Issue, pk=kwargs['pk'])
-        form = IssueForm(data=request.POST)
-        context = {"form": form, "issue": issue}
-        if form.is_valid():
-            issue.summary = form.cleaned_data['summary']
-            issue.status = form.cleaned_data['status']
-            issue.description = form.cleaned_data['description']
-            issue.save()
-            issue.types.set(form.cleaned_data['types'])
-        else:
-            return render(request, "edit_issue.html", context)
-        return redirect('issue', pk=issue.pk)
+    def dispatch(self, request, *args, **kwargs):
+        self.issue = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Issue, pk=pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['issue'] = self.issue
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.issue
+        return kwargs
+
+    def form_valid(self, form):
+        self.issue = form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('issue', kwargs={'pk': self.issue.pk})
 
 
 class DeleteIssueView(View):
