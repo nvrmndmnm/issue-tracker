@@ -1,19 +1,33 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import View, TemplateView, FormView
+from django.views.generic import View, TemplateView, FormView, ListView
 from webapp.models import Issue
 from webapp.forms import IssueForm
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
+    model = Issue
     template_name = 'index.html'
+    ordering = ['-time_created']
+    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        if kwargs.get("status_pk"):
-            kwargs["issues"] = Issue.objects.all().filter(status_id=kwargs["status_pk"])
-        else:
-            kwargs["issues"] = Issue.objects.all()
+    def get(self, request, *args, **kwargs):
+        self.filtered_value = self.get_filtered_value()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
         return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.filtered_value:
+            queryset = queryset.filter(status_id=self.filtered_value)
+        return queryset
+
+    def get_filtered_value(self):
+        if self.kwargs.get('status_pk'):
+            return self.kwargs['status_pk']
 
 
 class IssueView(TemplateView):

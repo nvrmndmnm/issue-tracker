@@ -34,10 +34,13 @@
                 {% endif %}
                 <hr>
             </div>
-            <div class="entries-count mb-3">
-                <span>Total found: {{ issues|length }}</span>
-            </div>
-            {% if issues %}
+            {% if issue_list %}
+                <div class="entries-count d-flex justify-content-between mb-3">
+                    <span>Issues {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }}</span>
+                    {% if is_paginated %}
+                        {% include "partial/pagination.html" %}
+                    {% endif %}
+                </div>
                 <table class="table px-4">
                     <thead>
                     <tr>
@@ -50,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for issue in issues %}
+                    {% for issue in issue_list %}
                         <tr class="entry">
                             <td>
                                 <a class="entry-title" href="{% url 'issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
@@ -78,6 +81,10 @@
                     {% endfor %}
                     </tbody>
                 </table>
+            {% else %}
+                <div class="mb-3">
+                    <span>No matching issues found.</span>
+                </div>
             {% endif %}
         </div>
     </div>
