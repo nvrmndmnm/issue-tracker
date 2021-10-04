@@ -1,14 +1,34 @@
 [
 {
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$bqCTd9MJNCPpVmAbfwLz8a$Hx5o2ddapvkMElYfjtwt7otyUIpexEDPqq1J+sqnoXk=",
+    "last_login": "2021-09-30T07:58:39.312Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-09-16T11:40:42.763Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "webapp.issue",
   "pk": 1,
   "fields": {
-    "summary": "Dumper truck dodgems",
+    "summary": "Just another task",
     "description": "Dodgem car ride with 60-tonne dumper trucks. This will allow us to reuse leftover dumper trucks from the construction phase, thereby reducing waste and helping to protect the environment.",
-    "status": 1,
-    "type": 1,
+    "status": 2,
     "time_created": "2021-09-16T11:46:08.011Z",
-    "time_updated": "2021-09-16T11:53:00.726Z"
+    "time_updated": "2021-10-04T09:24:36.168Z",
+    "types": [
+      2
+    ]
   }
 },
 {
@@ -17,10 +37,12 @@
   "fields": {
     "summary": "Reinforced boundary walls",
     "description": "We need heavily reinforced boundary walls to keep the dumper trucks inside the designated area.",
-    "status": 1,
-    "type": 3,
+    "status": 2,
     "time_created": "2021-09-16T11:53:33.193Z",
-    "time_updated": "2021-09-16T11:53:33.193Z"
+    "time_updated": "2021-09-17T20:17:05.668Z",
+    "types": [
+      1
+    ]
   }
 },
 {
@@ -30,9 +52,11 @@
     "summary": "Better usability of the Self-Destruct Button",
     "description": "Why should the user go through all these confirmation dialogs?",
     "status": 2,
-    "type": 3,
     "time_created": "2021-09-16T11:54:01.107Z",
-    "time_updated": "2021-09-16T11:54:01.107Z"
+    "time_updated": "2021-09-16T11:54:01.107Z",
+    "types": [
+      3
+    ]
   }
 },
 {
@@ -42,9 +66,11 @@
     "summary": "Walls are breachable",
     "description": "it's too easy to fly there on a small battleship",
     "status": 3,
-    "type": 2,
     "time_created": "2021-09-16T11:54:44.950Z",
-    "time_updated": "2021-09-16T11:54:44.950Z"
+    "time_updated": "2021-09-16T11:54:44.950Z",
+    "types": [
+      2
+    ]
   }
 },
 {
@@ -53,10 +79,13 @@
   "fields": {
     "summary": "Static discharge problem",
     "description": "For some reason, static charge accumulates on the control handles and strikes me every time I command the drive. That is so cruel!",
-    "status": 2,
-    "type": 2,
+    "status": 3,
     "time_created": "2021-09-16T11:55:09.993Z",
-    "time_updated": "2021-09-16T11:55:09.993Z"
+    "time_updated": "2021-09-17T17:46:12.992Z",
+    "types": [
+      1,
+      3
+    ]
   }
 },
 {
@@ -66,9 +95,128 @@
     "summary": "Secret button to shut down the Rebels hyperdrive",
     "description": "This would be real nice!",
     "status": 3,
-    "type": 1,
     "time_created": "2021-09-16T11:55:10.021Z",
-    "time_updated": "2021-09-16T11:55:45.159Z"
+    "time_updated": "2021-09-17T20:51:08.252Z",
+    "types": [
+      1,
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 12,
+  "fields": {
+    "summary": "Visualize formula results with HTML formatting",
+    "description": "Visualize formula results with HTML formatting",
+    "status": 2,
+    "time_created": "2021-09-22T06:46:04.149Z",
+    "time_updated": "2021-09-22T06:46:04.149Z",
+    "types": [
+      1,
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 13,
+  "fields": {
+    "summary": "API for integrations with automated testing tools",
+    "description": "API2",
+    "status": 2,
+    "time_created": "2021-09-22T06:46:35.947Z",
+    "time_updated": "2021-10-03T06:49:07.144Z",
+    "types": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 14,
+  "fields": {
+    "summary": "Fast and Easy Testing Extension for Structure",
+    "description": "Bugged performance",
+    "status": 2,
+    "time_created": "2021-09-22T06:47:14.739Z",
+    "time_updated": "2021-10-03T06:49:18.549Z",
+    "types": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 15,
+  "fields": {
+    "summary": "Risk Management Tool Enablers",
+    "description": "- Statuses Presets management\t\r\n- Independent statuses\r\n- Per columns statuses",
+    "status": 3,
+    "time_created": "2021-09-22T06:48:15.994Z",
+    "time_updated": "2021-10-03T06:49:28.911Z",
+    "types": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 16,
+  "fields": {
+    "summary": "Add comments to results",
+    "description": "New comments block",
+    "status": 3,
+    "time_created": "2021-09-22T06:48:42.573Z",
+    "time_updated": "2021-09-22T06:48:42.573Z",
+    "types": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 17,
+  "fields": {
+    "summary": "BUG: Allowed custom statuses",
+    "description": "TBD",
+    "status": 2,
+    "time_created": "2021-09-22T06:49:29.686Z",
+    "time_updated": "2021-09-22T06:52:19.994Z",
+    "types": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 18,
+  "fields": {
+    "summary": "3005 1",
+    "description": "asdasdasda",
+    "status": 2,
+    "time_created": "2021-09-30T08:39:28.528Z",
+    "time_updated": "2021-10-04T09:24:58.448Z",
+    "types": [
+      1,
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 21,
+  "fields": {
+    "summary": "Static discharge problem",
+    "description": "Ho",
+    "status": 3,
+    "time_created": "2021-09-30T09:38:59.188Z",
+    "time_updated": "2021-09-30T09:42:02.779Z",
+    "types": [
+      3
+    ]
   }
 },
 {
@@ -111,24 +259,6 @@
   "pk": 3,
   "fields": {
     "name": "Done"
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$260000$bqCTd9MJNCPpVmAbfwLz8a$Hx5o2ddapvkMElYfjtwt7otyUIpexEDPqq1J+sqnoXk=",
-    "last_login": "2021-09-16T11:40:48.616Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "admin@admin.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2021-09-16T11:40:42.763Z",
-    "groups": [],
-    "user_permissions": []
   }
 }
 ]
