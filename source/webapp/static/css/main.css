@@ -42,6 +42,10 @@ li a.btn-filters {
 .btn-nav:hover {
     background-color: #72b3ff;
 }
+.btn-search {
+    margin: 1px 0 0 -40px;
+    color: #0d6efd;
+}
 .header {
     width: 1200px;
     display: flex;
