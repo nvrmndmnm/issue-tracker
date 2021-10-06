@@ -117,11 +117,6 @@ class EditIssueView(FormView):
 
 
 class DeleteIssueView(View):
-    def get(self, request, *args, **kwargs):
-        issue = get_object_or_404(Issue, pk=kwargs['pk'])
-        context = {"issue": issue}
-        return render(request, "issue/delete.html", context)
-
     def post(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         issue.delete()

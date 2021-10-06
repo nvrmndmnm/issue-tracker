@@ -25,6 +25,8 @@ class Issue(models.Model):
                                default='webapp.IssueStatus', verbose_name='Status', related_name='statuses')
     types = models.ManyToManyField('webapp.IssueType', verbose_name='Types',
                                    related_name='types')
+    project = models.ForeignKey('webapp.Project', on_delete=models.RESTRICT, related_name='project',
+                                default=1, verbose_name='Issue project')
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
@@ -41,6 +43,20 @@ class IssueType(models.Model):
 
 class IssueStatus(models.Model):
     name = models.CharField(max_length=30, verbose_name='Status')
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Project(models.Model):
+    date_started = models.DateField(verbose_name='Start date')
+    date_ended = models.DateField(verbose_name='End date', null=True, blank=True)
+    name = models.CharField(max_length=150, verbose_name='Project name',
+                            validators=[MinValueValidator(5),
+                                        RegexValidator(regex='^[ a-zA-Z0-9]*$',
+                                                       message='Value should only contain Latin letters and numbers.'
+                                                       )])
+    description = models.TextField(max_length=2000, verbose_name='Project description')
 
     def __str__(self):
         return f"{self.name}"
