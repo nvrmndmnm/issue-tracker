@@ -25,7 +25,30 @@
     </div>
 </nav>
 <div class="content">
-    {% block content %}{% endblock %}
+    <div class="wrapper d-flex mt-4">
+        <div class="col-lg-2 col-xl-2 col-md-2 ps-4">
+            <div class="filters-heading">
+                <strong>Filters</strong>
+            </div>
+            <ul class="filters-list">
+                <li>
+                    <a class="btn-filters" href="{% url 'index' %}">All issues</a>
+                </li>
+                <li>
+                    <a class="btn-filters" href="{% url 'filter' 1 %}">New issues</a>
+                </li>
+                <li>
+                    <a class="btn-filters" href="{% url 'filter' 2 %}">Open issues</a>
+                </li>
+                <li>
+                    <a class="btn-filters" href="{% url 'filter' 3 %}">Done issues</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
 </div>
 <script src="{% static "js/jquery-3.6.0.min.js" %}"></script>
 <script src="{% static "js/bootstrap.min.js" %}"></script>

@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.http import urlencode
-from django.views.generic import View, TemplateView, FormView, ListView
+from django.views.generic import View, FormView, ListView, DetailView
 from webapp.models import Issue
 from webapp.forms import IssueForm, SearchForm
 
@@ -68,12 +68,10 @@ class IndexView(SearchView):
         return query
 
 
-class IssueView(TemplateView):
+class IssueView(DetailView):
     template_name = 'issue/issue.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs["issue"] = get_object_or_404(Issue, pk=kwargs["pk"])
-        return super().get_context_data(**kwargs)
+    context_object_name = 'issue'
+    model = Issue
 
 
 class AddIssueView(FormView):
