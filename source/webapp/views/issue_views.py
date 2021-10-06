@@ -9,7 +9,7 @@ from webapp.forms import IssueForm, SearchForm
 
 class SearchView(ListView):
     model = Issue
-    template_name = 'index.html'
+    template_name = 'issue/index.html'
     ordering = ['-time_created']
     paginate_by = 10
 
@@ -69,7 +69,7 @@ class IndexView(SearchView):
 
 
 class IssueView(TemplateView):
-    template_name = 'issue.html'
+    template_name = 'issue/issue.html'
 
     def get_context_data(self, **kwargs):
         kwargs["issue"] = get_object_or_404(Issue, pk=kwargs["pk"])
@@ -77,7 +77,7 @@ class IssueView(TemplateView):
 
 
 class AddIssueView(FormView):
-    template_name = 'add_issue.html'
+    template_name = 'issue/create.html'
     form_class = IssueForm
 
     def form_valid(self, form):
@@ -89,7 +89,7 @@ class AddIssueView(FormView):
 
 
 class EditIssueView(FormView):
-    template_name = 'edit_issue.html'
+    template_name = 'issue/update.html'
     form_class = IssueForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -122,7 +122,7 @@ class DeleteIssueView(View):
     def get(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         context = {"issue": issue}
-        return render(request, "delete_issue.html", context)
+        return render(request, "issue/delete.html", context)
 
     def post(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
