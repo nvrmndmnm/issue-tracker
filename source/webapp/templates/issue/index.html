@@ -1,93 +1,127 @@
 {% extends 'base.html' %}
 {% block title %} Main page{% endblock %}
 {% block content %}
-
-    <div class="entries-nav">
-        {% if request.path == '/filter/1/'%}
-            <h2>New issues</h2>
-        {% elif request.path == '/filter/2/'%}
-            <h2>Open issues</h2>
-        {% elif request.path == '/filter/3/'%}
-            <h2>Done issues</h2>
-        {% elif 'search' in request.path %}
-            <h2>Search results for "{{ search_form.q.value }}"</h2>
-        {% else %}
-            <h2>All issues</h2>
-        {% endif %}
-        <hr>
+    <div class="col-lg-2 col-xl-2 col-md-2 ps-4">
+        <div class="filters-heading">
+            <strong>Filters</strong>
+        </div>
+        <ul class="filters-list">
+            <li>
+                <a class="btn-filters" href="{{ request.path }}">All issues</a>
+            </li>
+            <li>
+                <a class="btn-filters" href="{{ request.path }}?status=1">New issues</a>
+            </li>
+            <li>
+                <a class="btn-filters" href="{{ request.path }}?status=2">Open issues</a>
+            </li>
+            <li>
+                <a class="btn-filters" href="{{ request.path }}?status=3">Done issues</a>
+            </li>
+        </ul>
     </div>
-    {% if issue_list %}
-        <div class="entries-count d-flex justify-content-between mb-3">
-            <div>
-                <span>Issues {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }}</span>
-                <div class="mt-3">
-                    {% include "partial/filter_form.html" %}
-                </div>
-            </div>
-            {% if is_paginated %}
-                {% include "partial/pagination.html" %}
+    <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
+        <div class="entries-nav">
+            {% if '/projects/' == request.path or request.path == '' %}
+                <h2>Projects</h2>
+            {% elif '/projects/' in request.path %}
+                <h2>Project issues</h2>
+            {% elif request.GET.status == '1'%}
+                <h2>New issues</h2>
+            {% elif request.GET.status == '2'%}
+                <h2>Open issues</h2>
+            {% elif request.GET.status == '3'%}
+                <h2>Done issues</h2>
+            {% elif 'search' in request.path %}
+                <h2>Search results for "{{ search_form.q.value }}"</h2>
+            {% elif request.path == '/issues/' %}
+                <h2>Issues</h2>
+            {% endif %}
+            <hr>
+            {% if project %}
+                {% include 'project/project_details.html' %}
             {% endif %}
         </div>
-        <table class="table px-4">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Summary</th>
-                <th scope="col">Type</th>
-                <th scope="col">Status</th>
-                <th scope="col">Created</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for issue in issue_list %}
-                <tr class="entry">
-                    <td>
-                        <a class="entry-title" href="{% url 'issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
-                    </td>
-                    <td>
-                        <a class="entry-title" href="{% url 'issue' issue.pk %}">{{ issue.summary }}</a>
-                    </td>
-                    <td>
-                        {% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </td>
-                    <td>{{ issue.status }}</td>
-                    <td>{{ issue.time_created|date }}</td>
-                    <td>
-                        <div class="btns-action d-flex justify-content-around">
-                            <a class="btn-action me-2" href="{% url 'edit_issue' issue.pk %}">
-                                <i class="fa fa-pencil"></i>
+        {% if issue_list %}
+            <div class="entries-count d-flex justify-content-between my-3">
+                <div>
+                    <span>
+                        Issues {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }}
+                    </span>
+                    <div class="d-flex justify-content-between mt-3">
+                        {% if project_pk %}
+                            <a class="btn btn-primary me-3" href="{% url 'create_project_issue' project_pk %}">
+                                Create project issue
                             </a>
-                            <a class="btn-action" href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ issue.pk }}">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </div>
-                        <div class="modal fade" id="modal_{{ issue.pk }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content px-5 py-4">
-                                    <h4 class="text-center">Are you sure want to remove issue [ID-{{ issue.pk }}]?</h4>
-                                    <hr class="mb-4">
-                                    <form action="{% url 'delete_issue' issue.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <div class="form-buttons d-flex justify-content-center">
-                                            <button class="btn form-btn me-3" type="submit">Yes</button>
-                                            <button class="btn form-btn" type="button" data-bs-dismiss="modal">No</button>
-                                        </div>
-                                    </form>
+                        {% endif %}
+                        {% include "partial/filter_form.html" %}
+                    </div>
+                </div>
+                {% if is_paginated %}
+                    {% include "partial/pagination.html" %}
+                {% endif %}
+            </div>
+            <table class="table px-4">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for issue in issue_list %}
+                    <tr class="entry">
+                        <td>
+                            <a class="entry-title" href="{% url 'issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
+                        </td>
+                        <td>
+                            <a class="entry-title" href="{% url 'issue' issue.pk %}">{{ issue.summary }}</a>
+                        </td>
+                        <td>
+                            {% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ issue.status }}</td>
+                        <td>{{ issue.time_created|date }}</td>
+                        <td>
+                            <div class="btns-action d-flex justify-content-around">
+                                <a class="btn-action me-2" href="{% url 'edit_issue' issue.pk %}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn-action" href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ issue.pk }}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                            <div class="modal fade" id="modal_{{ issue.pk }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content px-5 py-4">
+                                        <h4 class="text-center">Are you sure want to remove issue [ID-{{ issue.pk }}]?</h4>
+                                        <hr class="mb-4">
+                                        <form action="{% url 'delete_issue' issue.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-buttons d-flex justify-content-center">
+                                                <button class="btn form-btn me-3" type="submit">Yes</button>
+                                                <button class="btn form-btn" type="button" data-bs-dismiss="modal">No</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <div class="mb-3">
-            <span>No matching issues found.</span>
-            <div class="mt-3"><a class="btn form-btn" href="{{request.META.HTTP_REFERER}}">Back</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="my-3">
+                <span>No matching issues found.</span>
+                <div class="mt-3"><a class="btn form-btn" href="{{request.META.HTTP_REFERER}}">Back</a>
+                </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}

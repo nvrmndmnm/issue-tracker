@@ -1,5 +1,5 @@
 from django import forms
-from webapp.models import Issue, IssueType
+from webapp.models import Issue, IssueType, Project
 
 
 class IssueForm(forms.ModelForm):
@@ -9,6 +9,12 @@ class IssueForm(forms.ModelForm):
                                            initial=IssueType.objects.first(),
                                            label="Type")
 
+    class Meta:
+        model = Issue
+        fields = ["summary", "project", "types", "status", "description"]
+
+
+class ProjectIssueForm(IssueForm):
     class Meta:
         model = Issue
         fields = ["summary", "types", "status", "description"]

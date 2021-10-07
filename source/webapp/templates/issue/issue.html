@@ -1,66 +1,89 @@
 {% extends 'base.html' %}
 {% block title %}Issue {{ issue.id }} - {{ issue.summary }}{% endblock %}
 {% block content %}
-    <div class="wrapper mt-4 ps-4">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'index' %}">Issues</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'issue' issue.pk %}">ID-{{ issue.pk }}</a></li>
-            </ol>
-        </nav>
-        <h2>{{ issue.summary }}</h2>
-        <div class="btns-control mt-3">
-            <a class="btn form-btn me-2" href="{% url 'edit_issue' issue.pk %}">Edit
-            </a>
-            <a class="btn form-btn" href="{% url 'delete_issue' issue.pk %}">Delete
-            </a>
+    <div class="col-lg-2 col-xl-2 col-md-2 ps-4">
+        <div class="filters-heading">
+            <strong>Filters</strong>
         </div>
-        <hr class="mt-3">
-        <a class="btn btn-collapse py-0 mt-3 mb-1" data-bs-toggle="collapse" href="#details" role="button"
-           aria-expanded="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14">
-                <g fill="none" fill-rule="evenodd">
-                    <path d="M3.29175 4.793c-.389.392-.389 1.027
+        <ul class="filters-list">
+            <li>
+                <a class="btn-filters" href="{% url 'issues' %}">All issues</a>
+            </li>
+            <li>
+                <a class="btn-filters" href="{% url 'issues' %}?status=1">New issues</a>
+            </li>
+            <li>
+                <a class="btn-filters" href="{% url 'issues' %}?status=2">Open issues</a>
+            </li>
+            <li>
+                <a class="btn-filters" href="{% url 'issues' %}?status=3">Done issues</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
+        <div class="wrapper mt-4 ps-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'projects' %}">Projects</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'project' issue.project.id %}">{{ issue.project }}</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'issue' issue.pk %}">ID-{{ issue.pk }}</a></li>
+                </ol>
+            </nav>
+            <h2>{{ issue.summary }}</h2>
+            <div class="btns-control mt-3">
+                <a class="btn form-btn me-2" href="{% url 'edit_issue' issue.pk %}">Edit
+                </a>
+                <a class="btn form-btn" href="{% url 'delete_issue' issue.pk %}">Delete
+                </a>
+            </div>
+            <hr class="mt-3">
+            <a class="btn btn-collapse py-0 mt-3 mb-1" data-bs-toggle="collapse" href="#details" role="button"
+               aria-expanded="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+                    <g fill="none" fill-rule="evenodd">
+                        <path d="M3.29175 4.793c-.389.392-.389 1.027
                     0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027
                     0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255
                     0-.51.098-.703.293z" fill="#344563">
-                    </path>
-                </g>
-            </svg> Details</a>
-        <div class="row">
-            <div class="collapse multi-collapse show" id="details">
-                <div class="card card-body rounded-0 d-flex flex-row">
-                    <div class="col">
-                        <p>
-                            <strong>Type: </strong>
-                            {% for type in issue.types.all %}
-                                {{ type }}{% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        </p>
-                        <p><strong>Status: </strong>{{ issue.status }}</p>
-                    </div>
-                    <div class="col">
-                        <p><strong>Created at: </strong>{{ issue.time_created }}</p>
-                        <p><strong>Updated at: </strong>{{ issue.time_updated }}</p>
+                        </path>
+                    </g>
+                </svg> Details</a>
+            <div class="row">
+                <div class="collapse multi-collapse show" id="details">
+                    <div class="card card-body rounded-0 d-flex flex-row">
+                        <div class="col">
+                            <p><strong>Project: </strong>{{ issue.project }}</p>
+                            <p>
+                                <strong>Type: </strong>
+                                {% for type in issue.types.all %}
+                                    {{ type }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p><strong>Status: </strong>{{ issue.status }}</p>
+                        </div>
+                        <div class="col">
+                            <p><strong>Created at: </strong>{{ issue.time_created }}</p>
+                            <p><strong>Updated at: </strong>{{ issue.time_updated }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <a class="btn btn-collapse py-0 mt-3 mb-1" data-bs-toggle="collapse" href="#description" role="button"
-           aria-expanded="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14">
-                <g fill="none" fill-rule="evenodd">
-                    <path d="M3.29175 4.793c-.389.392-.389 1.027
+            <a class="btn btn-collapse py-0 mt-3 mb-1" data-bs-toggle="collapse" href="#description" role="button"
+               aria-expanded="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+                    <g fill="none" fill-rule="evenodd">
+                        <path d="M3.29175 4.793c-.389.392-.389 1.027
                     0 1.419l2.939 2.965c.218.215.5.322.779.322s.556-.107.769-.322l2.93-2.955c.388-.392.388-1.027
                     0-1.419-.389-.392-1.018-.392-1.406 0l-2.298 2.317-2.307-2.327c-.194-.195-.449-.293-.703-.293-.255
                     0-.51.098-.703.293z" fill="#344563">
-                    </path>
-                </g>
-            </svg> Description</a>
-        <div class="row">
-            <div class="collapse multi-collapse show" id="description">
-                <div class="card card-body rounded-0">
-                    <p>{{ issue.description|linebreaksbr }}</p>
+                        </path>
+                    </g>
+                </svg> Description</a>
+            <div class="row">
+                <div class="collapse multi-collapse show" id="description">
+                    <div class="card card-body rounded-0">
+                        <p>{{ issue.description|linebreaksbr }}</p>
+                    </div>
                 </div>
             </div>
         </div>

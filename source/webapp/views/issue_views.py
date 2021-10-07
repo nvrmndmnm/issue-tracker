@@ -1,10 +1,10 @@
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.http import urlencode
-from django.views.generic import View, FormView, ListView, DetailView
+from django.views.generic import View, FormView, ListView, DetailView, CreateView
 from webapp.models import Issue
-from webapp.forms import IssueForm, SearchForm
+from webapp.forms import IssueForm, SearchForm, ProjectIssueForm
 
 
 class SearchView(ListView):
@@ -58,8 +58,8 @@ class IndexView(SearchView):
         return queryset
 
     def get_filtered_value(self):
-        if self.kwargs.get('status_pk'):
-            return self.kwargs['status_pk']
+        if self.request.GET.get('status'):
+            return self.request.GET.get('status')
 
     def get_query(self):
         # Метод класса переопределён, поэтому поиск в хэдере глобальный и ищет только по summary,
@@ -74,21 +74,18 @@ class IssueView(DetailView):
     model = Issue
 
 
-class AddIssueView(FormView):
+class CreateIssueView(CreateView):
+    model = Issue
     template_name = 'issue/create.html'
     form_class = IssueForm
 
-    def form_valid(self, form):
-        self.issue = form.save()
-        return super().form_valid(form)
-
     def get_success_url(self):
-        return reverse('issue', kwargs={'pk': self.issue.pk})
+        return reverse('issue', kwargs={'pk': self.object.pk})
 
 
 class EditIssueView(FormView):
     template_name = 'issue/update.html'
-    form_class = IssueForm
+    form_class = ProjectIssueForm
 
     def dispatch(self, request, *args, **kwargs):
         self.issue = self.get_object()
@@ -120,4 +117,4 @@ class DeleteIssueView(View):
     def post(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         issue.delete()
-        return redirect('index')
+        return redirect(request.META.get('HTTP_REFERER', 'index'))

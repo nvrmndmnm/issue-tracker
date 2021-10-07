@@ -76,7 +76,7 @@ li a.btn-filters {
     transform: rotate(-90deg);
 }
 .form-wrapper {
-    width: 60%;
+    width: 42%;
 }
 li label {
     display: block;
@@ -86,7 +86,7 @@ label {
     align-self: start;
 }
 input[type=text] {
-    width: 316px;
+    width: 320px;
 }
 select {
     height: 30px;
