@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from webapp import views as webapp_views
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('', webapp_views.ProjectsView.as_view(), name='index'),
     path('projects/', webapp_views.ProjectsView.as_view(), name='projects'),
     path('projects/<int:project_pk>/', webapp_views.ProjectView.as_view(), name='project'),
