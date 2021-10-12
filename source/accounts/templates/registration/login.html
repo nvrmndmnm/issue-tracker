@@ -8,9 +8,6 @@
         <hr>
         <form action="{% url 'login' %}?next={{ next }}" method="post" class="text-center">
             {% csrf_token %}
-            {% if has_error %}
-                <p class="form-error">Incorrect username or password.</p>
-            {% endif %}
             <div class="d-flex justify-content-between flex-wrap mb-3">
                 <label for="username" class="form-label me-3">Username:</label>
                 <input type="text" name="username" id="username">
@@ -19,6 +16,9 @@
                 <label for="password" class="form-label me-3">Password:</label>
                 <input type="password" name="password" id="password">
             </div>
+            {% if form.errors %}
+                <p class="form-error">Incorrect username or password.</p>
+            {% endif %}
             <hr>
             <div class="form-buttons d-flex justify-content-end">
                 <button class="btn form-btn me-3" type="submit">Login</button>
