@@ -23,6 +23,12 @@
             <a class="btn btn-nav text-white me-2" href="{% url 'projects' %}">Projects</a>
             <a class="btn btn-nav text-white me-2" href="{% url 'create_issue' %}">Create issue</a>
             {% include "partial/search_form.html" %}
+            {% if  user.is_authenticated %}
+                <span class="text-white align-self-center ms-2">{{ user.username }}</span>
+                <a class="btn text-white text-decoration-underline" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="btn text-white text-decoration-underline" href="{% url 'login' %}">Login</a>
+            {% endif %}
         </div>
     </div>
 </nav>

@@ -85,7 +85,7 @@ label {
     font-size: 16px;
     align-self: start;
 }
-input[type=text] {
+input[type=text], [type=password] {
     width: 320px;
 }
 select {
