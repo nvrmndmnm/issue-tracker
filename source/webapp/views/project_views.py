@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from webapp.forms import ProjectIssueForm
 from webapp.views.issue_views import IndexView
 from webapp.models import Project, Issue
@@ -40,7 +40,7 @@ class ProjectView(IndexView):
         return get_object_or_404(Project, pk=self.project_id)
 
 
-class CreateProjectIssueView(CreateView):
+class CreateProjectIssueView(LoginRequiredMixin, CreateView):
     model = Issue
     form_class = ProjectIssueForm
     template_name = 'issue/create.html'
@@ -64,7 +64,7 @@ class CreateProjectIssueView(CreateView):
             return self.kwargs['project_pk']
 
 
-class CreateProjectView(CreateView):
+class CreateProjectView(LoginRequiredMixin, CreateView):
     model = Project
     fields = ['name', 'date_started', 'date_ended', 'description']
     template_name = 'project/create.html'

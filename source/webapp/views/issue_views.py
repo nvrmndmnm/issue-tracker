@@ -5,6 +5,7 @@ from django.utils.http import urlencode
 from django.views.generic import View, FormView, ListView, DetailView, CreateView
 from webapp.models import Issue
 from webapp.forms import IssueForm, SearchForm, ProjectIssueForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class SearchView(ListView):
@@ -74,7 +75,7 @@ class IssueView(DetailView):
     model = Issue
 
 
-class CreateIssueView(CreateView):
+class CreateIssueView(LoginRequiredMixin, CreateView):
     model = Issue
     template_name = 'issue/create.html'
     form_class = IssueForm
@@ -83,7 +84,7 @@ class CreateIssueView(CreateView):
         return reverse('issue', kwargs={'pk': self.object.pk})
 
 
-class EditIssueView(FormView):
+class EditIssueView(LoginRequiredMixin, FormView):
     template_name = 'issue/update.html'
     form_class = ProjectIssueForm
 
@@ -113,7 +114,7 @@ class EditIssueView(FormView):
         return reverse('issue', kwargs={'pk': self.issue.pk})
 
 
-class DeleteIssueView(View):
+class DeleteIssueView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         issue.delete()
