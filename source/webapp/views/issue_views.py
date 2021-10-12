@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.generic import View, FormView, ListView, DetailView, CreateView
@@ -115,6 +115,13 @@ class EditIssueView(LoginRequiredMixin, FormView):
 
 
 class DeleteIssueView(LoginRequiredMixin, View):
+    template_name = 'issue/delete.html'
+
+    def get(self, request, *args, **kwargs):
+        issue = get_object_or_404(Issue, pk=kwargs['pk'])
+        context = {"issue": issue}
+        return render(request, "issue/delete.html", context)
+
     def post(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])
         issue.delete()

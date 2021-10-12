@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Main page{% endblock %}
+{% block title %}Login page{% endblock %}
 {% block content %}
     <div class="form-wrapper mx-auto mt-4">
         <h2>Login</h2>
         <hr>
-        <form action="{% url 'login' %}" method="post" class="text-center">
+        <form action="{% url 'login' %}?next={{ next }}" method="post" class="text-center">
             {% csrf_token %}
             {% if has_error %}
                 <p class="form-error">Incorrect username or password.</p>

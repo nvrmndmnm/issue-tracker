@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Delete issue{% endblock %}
+{% block content %}
+    <div class="form-wrapper mx-auto mt-4">
+        <h3>Are you sure want to remove issue [{{ issue.pk }} - {{ issue.summary }}]?</h3>
+        <hr>
+        <form action="{% url 'delete_issue' issue.pk %}" method="post">
+            {% csrf_token %}
+            <div class="form-buttons d-flex justify-content-end">
+                <button class="btn form-btn me-3" type="submit"> Yes</button>
+                <a class="btn form-btn" href="{% url 'index' %}">Back</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
