@@ -85,7 +85,7 @@ label {
     font-size: 16px;
     align-self: start;
 }
-input[type=text], [type=password] {
+input[type=text], [type=password], [type=email] {
     width: 320px;
 }
 select {
