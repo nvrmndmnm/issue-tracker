@@ -6,7 +6,7 @@
     <div class="form-wrapper mx-auto mt-4">
         <h2>Login</h2>
         <hr>
-        <form action="{% url 'login' %}?next={{ next }}" method="post" class="text-center">
+        <form action="{% url 'accounts:login' %}?next={{ next }}" method="post" class="text-center">
             {% csrf_token %}
             <div class="d-flex justify-content-between flex-wrap mb-3">
                 <label for="username" class="form-label me-3">Username:</label>

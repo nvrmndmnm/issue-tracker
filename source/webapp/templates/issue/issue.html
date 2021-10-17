@@ -7,16 +7,16 @@
         </div>
         <ul class="filters-list">
             <li>
-                <a class="btn-filters" href="{% url 'issues' %}">All issues</a>
+                <a class="btn-filters" href="{% url 'webapp:issues' %}">All issues</a>
             </li>
             <li>
-                <a class="btn-filters" href="{% url 'issues' %}?status=1">New issues</a>
+                <a class="btn-filters" href="{% url 'webapp:issues' %}?status=1">New issues</a>
             </li>
             <li>
-                <a class="btn-filters" href="{% url 'issues' %}?status=2">Open issues</a>
+                <a class="btn-filters" href="{% url 'webapp:issues' %}?status=2">Open issues</a>
             </li>
             <li>
-                <a class="btn-filters" href="{% url 'issues' %}?status=3">Done issues</a>
+                <a class="btn-filters" href="{% url 'webapp:issues' %}?status=3">Done issues</a>
             </li>
         </ul>
     </div>
@@ -24,14 +24,14 @@
         <div class="wrapper mt-4 ps-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'projects' %}">Projects</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'project' issue.project.id %}">{{ issue.project }}</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'issue' issue.pk %}">ID-{{ issue.pk }}</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'webapp:projects' %}">Projects</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'webapp:project' issue.project.id %}">{{ issue.project }}</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'webapp:issue' issue.pk %}">ID-{{ issue.pk }}</a></li>
                 </ol>
             </nav>
             <h2>{{ issue.summary }}</h2>
             <div class="btns-control mt-3">
-                <a class="btn form-btn me-2" href="{% url 'edit_issue' issue.pk %}">Edit
+                <a class="btn form-btn me-2" href="{% url 'webapp:edit_issue' issue.pk %}">Edit
                 </a>
                 <a class="btn form-btn" href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ issue.pk }}">Delete
                 </a>
@@ -40,7 +40,7 @@
                                     <div class="modal-content px-5 py-4">
                                         <h4 class="text-center">Are you sure want to remove issue [ID-{{ issue.pk }}]?</h4>
                                         <hr class="mb-4">
-                                        <form action="{% url 'delete_issue' issue.pk %}" method="post">
+                                        <form action="{% url 'webapp:delete_issue' issue.pk %}" method="post">
                                             {% csrf_token %}
                                             <div class="form-buttons d-flex justify-content-center">
                                                 <button class="btn form-btn me-3" type="submit">Yes</button>

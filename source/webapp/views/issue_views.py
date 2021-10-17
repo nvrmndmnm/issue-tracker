@@ -81,7 +81,7 @@ class CreateIssueView(LoginRequiredMixin, CreateView):
     form_class = IssueForm
 
     def get_success_url(self):
-        return reverse('issue', kwargs={'pk': self.object.pk})
+        return reverse('webapp:issue', kwargs={'pk': self.object.pk})
 
 
 class EditIssueView(LoginRequiredMixin, FormView):
@@ -111,7 +111,7 @@ class EditIssueView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('issue', kwargs={'pk': self.issue.pk})
+        return reverse('webapp:issue', kwargs={'pk': self.issue.pk})
 
 
 class DeleteIssueView(LoginRequiredMixin, View):

@@ -50,7 +50,7 @@
                     </span>
                     <div class="d-flex justify-content-between mt-3">
                         {% if project_pk %}
-                            <a class="btn btn-primary me-3" href="{% url 'create_project_issue' project_pk %}">
+                            <a class="btn btn-primary me-3" href="{% url 'webapp:create_project_issue' project_pk %}">
                                 Create project issue
                             </a>
                         {% endif %}
@@ -76,10 +76,10 @@
                 {% for issue in issue_list %}
                     <tr class="entry">
                         <td>
-                            <a class="entry-title" href="{% url 'issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
+                            <a class="entry-title" href="{% url 'webapp:issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
                         </td>
                         <td>
-                            <a class="entry-title" href="{% url 'issue' issue.pk %}">{{ issue.summary }}</a>
+                            <a class="entry-title" href="{% url 'webapp:issue' issue.pk %}">{{ issue.summary }}</a>
                         </td>
                         <td>
                             {% for type in issue.types.all %}{{ type }}{% if not forloop.last %}, {% endif %}
@@ -89,7 +89,7 @@
                         <td>{{ issue.time_created|date }}</td>
                         <td>
                             <div class="btns-action d-flex justify-content-around">
-                                <a class="btn-action me-2" href="{% url 'edit_issue' issue.pk %}">
+                                <a class="btn-action me-2" href="{% url 'webapp:edit_issue' issue.pk %}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 <a class="btn-action" href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ issue.pk }}">
@@ -101,7 +101,7 @@
                                     <div class="modal-content px-5 py-4">
                                         <h4 class="text-center">Are you sure want to remove issue [ID-{{ issue.pk }}]?</h4>
                                         <hr class="mb-4">
-                                        <form action="{% url 'delete_issue' issue.pk %}" method="post">
+                                        <form action="{% url 'webapp:delete_issue' issue.pk %}" method="post">
                                             {% csrf_token %}
                                             <div class="form-buttons d-flex justify-content-center">
                                                 <button class="btn form-btn me-3" type="submit">Yes</button>

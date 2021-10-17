@@ -52,7 +52,7 @@ class CreateProjectIssueView(LoginRequiredMixin, CreateView):
         issue.project = project
         issue.save()
         form.save_m2m()
-        return redirect('issue', pk=issue.pk)
+        return redirect('webapp:issue', pk=issue.pk)
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -70,4 +70,4 @@ class CreateProjectView(LoginRequiredMixin, CreateView):
     template_name = 'project/create.html'
 
     def get_success_url(self):
-        return reverse('projects')
+        return reverse('webapp:projects')

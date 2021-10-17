@@ -7,7 +7,7 @@
         </div>
         <ul class="filters-list">
             <li>
-                <a class="btn-filters" href="{% url 'index' %}">All projects</a>
+                <a class="btn-filters" href="{% url 'webapp:index' %}">All projects</a>
             </li>
         </ul>
     </div>
@@ -21,7 +21,7 @@
                 <div>
                     <span>Projects {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }}</span>
                     <div class="mt-3">
-                        <a class="btn btn-primary me-2" href="{% url 'create_project' %}">Create project</a>
+                        <a class="btn btn-primary me-2" href="{% url 'webapp:create_project' %}">Create project</a>
                     </div>
                 </div>
                 {% if is_paginated %}
@@ -41,10 +41,10 @@
                 {% for project in project_list %}
                     <tr class="entry">
                         <td>
-                            <a class="entry-title" href="{% url 'project' project.pk %}">[PR-{{ project.pk }}]</a>
+                            <a class="entry-title" href="{% url 'webapp:project' project.pk %}">[PR-{{ project.pk }}]</a>
                         </td>
                         <td>
-                            <a class="entry-title" href="{% url 'project' project.pk %}">{{ project.name }}</a>
+                            <a class="entry-title" href="{% url 'webapp:project' project.pk %}">{{ project.name }}</a>
                         </td>
                         <td>{{ project.date_started }}</td>
                         <td>{{ project.description|truncatewords:10 }}</td>

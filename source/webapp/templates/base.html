@@ -17,17 +17,17 @@
 <body>
 <nav class="site-header navbar navbar-expand-lg justify-content-center bg-primary sticky-top">
     <div class="header">
-        <a class="btn-logo" href="{% url 'index' %}"><strong>45|15</strong></a>
+        <a class="btn-logo" href="{% url 'webapp:index' %}"><strong>45|15</strong></a>
         <div class="header-controls d-flex">
-            <a class="btn btn-nav text-white me-2" href="{% url 'issues' %}">Issues</a>
-            <a class="btn btn-nav text-white me-2" href="{% url 'projects' %}">Projects</a>
-            <a class="btn btn-nav text-white me-2" href="{% url 'create_issue' %}">Create issue</a>
+            <a class="btn btn-nav text-white me-2" href="{% url 'webapp:issues' %}">Issues</a>
+            <a class="btn btn-nav text-white me-2" href="{% url 'webapp:projects' %}">Projects</a>
+            <a class="btn btn-nav text-white me-2" href="{% url 'webapp:create_issue' %}">Create issue</a>
             {% include "partial/search_form.html" %}
             {% if  user.is_authenticated %}
                 <span class="text-white align-self-center ms-2">{{ user.username }}</span>
-                <a class="btn text-white text-decoration-underline" href="{% url 'logout' %}">Logout</a>
+                <a class="btn text-white text-decoration-underline" href="{% url 'accounts:logout' %}">Logout</a>
             {% else %}
-                <a class="btn text-white text-decoration-underline" href="{% url 'login' %}">Login</a>
+                <a class="btn text-white text-decoration-underline" href="{% url 'accounts:login' %}">Login</a>
             {% endif %}
         </div>
     </div>
