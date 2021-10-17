@@ -4,7 +4,7 @@
 {% endfor %}
 {% for field in form %}
     <div class="d-flex justify-content-between flex-wrap">
-        <label class="me-3" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+        <label class="me-2" for="{{ field.id_for_label }}">{{ field.label }}:</label>
         {% if field.errors %}
             <p class="field-error">{{ field }}</p>
             {% for error in field.errors %}
