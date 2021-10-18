@@ -27,8 +27,12 @@
                 <span class="text-white align-self-center ms-2">{{ user.username }}</span>
                 <a class="btn text-white text-decoration-underline" href="{% url 'accounts:logout' %}">Logout</a>
             {% else %}
-                <a class="btn text-white text-decoration-underline" href="{% url 'accounts:login' %}">Login</a>
-                <a class="btn text-white text-decoration-underline" href="{% url 'accounts:create' %}">Sign up</a>
+                <a class="btn text-white text-decoration-underline ms-3 px-1"
+                   href="{% url 'accounts:login' %}?next={% if not 'next' in request.GET %}{{ request.get_full_path }}
+                            {% else %}{{ request.GET.next }}{% endif %}">Login</a>
+                <a class="btn text-white text-decoration-underline px-1"
+                   href="{% url 'accounts:create' %}?next={% if not 'next' in request.GET %}{{ request.get_full_path }}
+                            {% else %}{{ request.GET.next }}{% endif %}">Sign up</a>
             {% endif %}
         </div>
     </div>
