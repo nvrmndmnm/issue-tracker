@@ -17,6 +17,7 @@
                 <p><strong>Start date: </strong>{{ project.date_started }}</p>
                 <p><strong>End date: </strong>{{ project.date_ended }}</p>
                 <p><strong>Description: </strong>{{ project.description }}</p>
+                <p><strong>Users: </strong>{{ project.users.all|join:", " }}</p>
             </div>
         </div>
     </div>

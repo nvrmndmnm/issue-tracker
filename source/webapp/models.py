@@ -1,6 +1,7 @@
 from django.core.validators import BaseValidator, RegexValidator
 from django.db import models
 from django.utils.deconstruct import deconstructible
+from django.contrib.auth.models import User
 
 
 @deconstructible
@@ -56,6 +57,7 @@ class Project(models.Model):
                                         RegexValidator(regex='^[ a-zA-Z0-9]*$',
                                                        message='Value should only contain Latin letters and numbers.'
                                                        )])
+    users = models.ManyToManyField('auth.User', verbose_name='Users', related_name='users')
     description = models.TextField(max_length=2000, verbose_name='Project description')
 
     def __str__(self):
