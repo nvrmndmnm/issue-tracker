@@ -1,23 +1,5 @@
 [
 {
-  "model": "auth.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$260000$bqCTd9MJNCPpVmAbfwLz8a$Hx5o2ddapvkMElYfjtwt7otyUIpexEDPqq1J+sqnoXk=",
-    "last_login": "2021-09-30T07:58:39.312Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "admin@admin.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2021-09-16T11:40:42.763Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
   "model": "webapp.issue",
   "pk": 1,
   "fields": {
@@ -173,21 +155,6 @@
 },
 {
   "model": "webapp.issue",
-  "pk": 17,
-  "fields": {
-    "summary": "BUG: Allowed custom statuses",
-    "description": "TBD",
-    "status": 2,
-    "project": 1,
-    "time_created": "2021-09-22T06:49:29.686Z",
-    "time_updated": "2021-09-22T06:52:19.994Z",
-    "types": [
-      3
-    ]
-  }
-},
-{
-  "model": "webapp.issue",
   "pk": 21,
   "fields": {
     "summary": "Static discharge problem",
@@ -203,17 +170,33 @@
 },
 {
   "model": "webapp.issue",
-  "pk": 48,
+  "pk": 49,
   "fields": {
-    "summary": "Project issue test 1",
-    "description": "Passed",
+    "summary": "Summary 1",
+    "description": "sw1",
     "status": 2,
-    "project": 1,
-    "time_created": "2021-10-07T13:03:19.414Z",
-    "time_updated": "2021-10-07T13:03:19.414Z",
+    "project": 2,
+    "time_created": "2021-10-21T08:13:13.887Z",
+    "time_updated": "2021-10-21T11:49:14.480Z",
     "types": [
       1,
       3
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 50,
+  "fields": {
+    "summary": "Task to test",
+    "description": "sdaa",
+    "status": 1,
+    "project": 8,
+    "time_created": "2021-10-21T10:52:07.493Z",
+    "time_updated": "2021-10-21T11:48:30.447Z",
+    "types": [
+      1,
+      2
     ]
   }
 },
@@ -266,7 +249,12 @@
     "date_started": "2021-10-06",
     "date_ended": null,
     "name": "Default",
-    "description": "Default project"
+    "description": "Default project",
+    "users": [
+      1,
+      13,
+      14
+    ]
   }
 },
 {
@@ -276,7 +264,12 @@
     "date_started": "2021-10-07",
     "date_ended": "2021-10-07",
     "name": "Commerce 2",
-    "description": "New implementation of commerce approach"
+    "description": "New implementation of commerce approach",
+    "users": [
+      1,
+      13,
+      14
+    ]
   }
 },
 {
@@ -286,7 +279,50 @@
     "date_started": "2021-10-07",
     "date_ended": "2021-10-07",
     "name": "Global decomposition",
-    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)"
+    "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)",
+    "users": [
+      15
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 8,
+  "fields": {
+    "date_started": "2021-10-06",
+    "date_ended": "2021-10-07",
+    "name": "Usersproject",
+    "description": "Desc",
+    "users": [
+      15
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 15,
+  "fields": {
+    "date_started": "2021-10-06",
+    "date_ended": "2021-10-07",
+    "name": "Dev Project",
+    "description": "as",
+    "users": [
+      14,
+      15
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 16,
+  "fields": {
+    "date_started": "2021-10-07",
+    "date_ended": "2021-10-07",
+    "name": "Manag",
+    "description": "s",
+    "users": [
+      1
+    ]
   }
 }
 ]
