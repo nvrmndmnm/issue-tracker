@@ -36,20 +36,20 @@
                 <a class="btn form-btn" href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ issue.pk }}">Delete
                 </a>
                 <div class="modal fade" id="modal_{{ issue.pk }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content px-5 py-4">
-                                        <h4 class="text-center">Are you sure want to remove issue [ID-{{ issue.pk }}]?</h4>
-                                        <hr class="mb-4">
-                                        <form action="{% url 'webapp:delete_issue' issue.pk %}" method="post">
-                                            {% csrf_token %}
-                                            <div class="form-buttons d-flex justify-content-center">
-                                                <button class="btn form-btn me-3" type="submit">Yes</button>
-                                                <button class="btn form-btn" type="button" data-bs-dismiss="modal">No</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                    <div class="modal-dialog">
+                        <div class="modal-content px-5 py-4">
+                            <h4 class="text-center">Are you sure want to remove issue [ID-{{ issue.pk }}]?</h4>
+                            <hr class="mb-4">
+                            <form action="{% url 'webapp:delete_issue' issue.pk %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-buttons d-flex justify-content-center">
+                                    <button class="btn form-btn me-3" type="submit">Yes</button>
+                                    <button class="btn form-btn" type="button" data-bs-dismiss="modal">No</button>
                                 </div>
-                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <hr class="mt-3">
             <a class="btn btn-collapse py-0 mt-3 mb-1" data-bs-toggle="collapse" href="#details" role="button"

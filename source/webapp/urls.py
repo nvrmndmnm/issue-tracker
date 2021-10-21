@@ -7,6 +7,7 @@ urlpatterns = [
     path('', webapp_views.IndexView.as_view(), name='index'),
     path('projects/', webapp_views.ProjectsView.as_view(), name='projects'),
     path('projects/<int:project_pk>/', webapp_views.ProjectView.as_view(), name='project'),
+    path('projects/<int:project_pk>/add_users/', webapp_views.AddProjectUsersView.as_view(), name='add_project_users'),
     path('issues/', webapp_views.IndexView.as_view(), name='issues'),
     path('issues/<int:pk>/', webapp_views.IssueView.as_view(), name='issue'),
     path('issues/create/', webapp_views.CreateIssueView.as_view(), name='create_issue'),
