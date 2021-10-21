@@ -18,9 +18,11 @@
                 <p><strong>End date: </strong>{{ project.date_ended }}</p>
                 <p><strong>Description: </strong>{{ project.description }}</p>
                 <p><strong>Users: </strong>{{ project.users.all|join:", " }}</p>
+                {% if perms.webapp.change_project and user in project.users.all %}
                 <a href="{% url 'webapp:add_project_users' project_pk %}"
                    class="text-decoration-underline" data-bs-toggle="modal"
                    data-bs-target="#modal_add_users">+ Update users</a>
+                {% endif %}
                 <div class="modal fade" id="modal_add_users" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content px-5 py-4">

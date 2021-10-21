@@ -42,6 +42,11 @@
                 {% include 'project/project_details.html' %}
             {% endif %}
         </div>
+        {% if project_pk and user in project.users.all %}
+            <a class="btn btn-primary me-3 mt-3" href="{% url 'webapp:create_project_issue' project_pk %}">
+                Create project issue
+            </a>
+        {% endif %}
         {% if issue_list %}
             <div class="entries-count d-flex justify-content-between my-3">
                 <div>
@@ -49,11 +54,6 @@
                         Issues {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }}
                     </span>
                     <div class="d-flex justify-content-between mt-3">
-                        {% if project_pk %}
-                            <a class="btn btn-primary me-3" href="{% url 'webapp:create_project_issue' project_pk %}">
-                                Create project issue
-                            </a>
-                        {% endif %}
                         {% include "partial/filter_form.html" %}
                     </div>
                 </div>

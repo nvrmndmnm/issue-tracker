@@ -1,20 +1,20 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, UpdateView, FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from webapp.forms import ProjectIssueForm, ProjectUsersForm
 from webapp.views.issue_views import IndexView
 from webapp.models import Project, Issue
 
 
-class ProjectsView(ListView):
+class ProjectsView(LoginRequiredMixin, ListView):
     model = Project
     template_name = 'project/list.html'
     ordering = ['id']
     paginate_by = 10
 
 
-class ProjectView(IndexView, FormView):
+class ProjectView(LoginRequiredMixin, IndexView, FormView):
     form_class = ProjectUsersForm
 
     def get(self, request, *args, **kwargs):
@@ -47,10 +47,14 @@ class ProjectView(IndexView, FormView):
         return kwargs
 
 
-class CreateProjectIssueView(LoginRequiredMixin, CreateView):
+class CreateProjectIssueView(UserPassesTestMixin, PermissionRequiredMixin, CreateView):
     model = Issue
     form_class = ProjectIssueForm
     template_name = 'issue/create.html'
+    permission_required = 'webapp.add_issue'
+
+    def test_func(self):
+        return self.request.user in self.get_project().users.all()
 
     def form_valid(self, form):
         pk = self.kwargs.get('project_pk')
@@ -63,18 +67,19 @@ class CreateProjectIssueView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        context['project_pk'] = self.get_project()
+        context['project_pk'] = self.get_project().pk
         return context
 
     def get_project(self):
         if self.kwargs.get('project_pk'):
-            return self.kwargs['project_pk']
+            return get_object_or_404(Project, pk=self.kwargs['project_pk'])
 
 
-class CreateProjectView(LoginRequiredMixin, CreateView):
+class CreateProjectView(PermissionRequiredMixin, CreateView):
     model = Project
     fields = ['name', 'date_started', 'date_ended', 'description']
     template_name = 'project/create.html'
+    permission_required = 'webapp.add_project'
 
     def form_valid(self, form):
         form.save()
@@ -85,10 +90,14 @@ class CreateProjectView(LoginRequiredMixin, CreateView):
         return reverse('webapp:projects')
 
 
-class AddProjectUsersView(LoginRequiredMixin, UpdateView):
+class AddProjectUsersView(UserPassesTestMixin, PermissionRequiredMixin, UpdateView):
     model = Project
     form_class = ProjectUsersForm
     template_name = 'partial/issue_form.html'
+    permission_required = 'webapp.change_project'
+
+    def test_func(self):
+        return self.request.user in self.get_object().users.all()
 
     def get_object(self, queryset=None):
         pk = self.kwargs.get('project_pk')

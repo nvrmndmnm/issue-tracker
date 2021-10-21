@@ -13,16 +13,18 @@
     </div>
     <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
         <div class="entries-nav">
-                <h2>Projects</h2>
+            <h2>Projects</h2>
             <hr>
         </div>
         {% if project_list %}
             <div class="entries-count d-flex justify-content-between mb-3">
                 <div>
                     <span>Projects {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }}</span>
-                    <div class="mt-3">
-                        <a class="btn btn-primary me-2" href="{% url 'webapp:create_project' %}">Create project</a>
-                    </div>
+                    {% if perms.webapp.add_project %}
+                        <div class="mt-3">
+                            <a class="btn btn-primary me-2" href="{% url 'webapp:create_project' %}">Create project</a>
+                        </div>
+                    {% endif %}
                 </div>
                 {% if is_paginated %}
                     {% include "partial/pagination.html" %}
