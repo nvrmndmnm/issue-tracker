@@ -42,7 +42,7 @@
                 {% include 'project/project_details.html' %}
             {% endif %}
         </div>
-        {% if project_pk and user in project.users.all %}
+        {% if project_pk and perms.webapp.superuser or user in project.users.all %}
             <a class="btn btn-primary me-3 mt-3" href="{% url 'webapp:create_project_issue' project_pk %}">
                 Create project issue
             </a>
@@ -74,6 +74,7 @@
                 </thead>
                 <tbody>
                 {% for issue in issue_list %}
+                    {% if request.user in issue.project.users.all or perms.webapp.superuser %}
                     <tr class="entry">
                         <td>
                             <a class="entry-title" href="{% url 'webapp:issue' issue.pk %}">[ID-{{ issue.pk }}]</a>
@@ -92,9 +93,11 @@
                                 <a class="btn-action me-2" href="{% url 'webapp:edit_issue' issue.pk %}">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a class="btn-action" href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ issue.pk }}">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                {% if perms.webapp.delete_issue %}
+                                    <a class="btn-action" href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ issue.pk }}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                {% endif %}
                             </div>
                             <div class="modal fade" id="modal_{{ issue.pk }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -113,6 +116,7 @@
                             </div>
                         </td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>

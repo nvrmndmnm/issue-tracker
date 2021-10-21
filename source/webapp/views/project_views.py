@@ -14,13 +14,12 @@ class ProjectsView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
 
-class ProjectView(LoginRequiredMixin, IndexView, FormView):
+class ProjectView(IndexView, FormView):
     form_class = ProjectUsersForm
 
     def get(self, request, *args, **kwargs):
         self.project_id = self.get_project_id()
         self.project = self.get_project()
-        print(self.project)
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, object_list=None, **kwargs):
@@ -47,14 +46,15 @@ class ProjectView(LoginRequiredMixin, IndexView, FormView):
         return kwargs
 
 
-class CreateProjectIssueView(UserPassesTestMixin, PermissionRequiredMixin, CreateView):
+class CreateProjectIssueView(UserPassesTestMixin, CreateView):
     model = Issue
     form_class = ProjectIssueForm
     template_name = 'issue/create.html'
-    permission_required = 'webapp.add_issue'
+    permission_required = ['webapp.add_issue', 'webapp.superuser']
 
     def test_func(self):
-        return self.request.user in self.get_project().users.all()
+        return self.request.user in self.get_project().users.all() or\
+               self.request.user.has_perm(self.permission_required)
 
     def form_valid(self, form):
         pk = self.kwargs.get('project_pk')
@@ -79,7 +79,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     model = Project
     fields = ['name', 'date_started', 'date_ended', 'description']
     template_name = 'project/create.html'
-    permission_required = 'webapp.add_project'
+    permission_required = ['webapp.add_project', 'webapp.superuser']
 
     def form_valid(self, form):
         form.save()
@@ -90,14 +90,15 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
         return reverse('webapp:projects')
 
 
-class AddProjectUsersView(UserPassesTestMixin, PermissionRequiredMixin, UpdateView):
+class UpdateProjectUsersView(UserPassesTestMixin, UpdateView):
     model = Project
     form_class = ProjectUsersForm
     template_name = 'partial/issue_form.html'
-    permission_required = 'webapp.change_project'
+    permission_required = ['webapp.change_project', 'webapp.superuser']
 
     def test_func(self):
-        return self.request.user in self.get_object().users.all()
+        return self.request.user in self.get_object().users.all() or\
+               self.request.user.has_perm(self.permission_required)
 
     def get_object(self, queryset=None):
         pk = self.kwargs.get('project_pk')
@@ -105,6 +106,9 @@ class AddProjectUsersView(UserPassesTestMixin, PermissionRequiredMixin, UpdateVi
 
     def form_valid(self, form):
         self.project = form.save()
+        if self.request.user not in self.project.users.all():
+            self.project.users.add(self.request.user)
+            raise PermissionError('Cannot remove yourself from the project.')
         return super().form_valid(form)
 
     def get_success_url(self):

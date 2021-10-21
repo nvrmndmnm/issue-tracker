@@ -5,10 +5,10 @@ from django.utils.http import urlencode
 from django.views.generic import View, FormView, ListView, DetailView, CreateView
 from webapp.models import Issue
 from webapp.forms import IssueForm, SearchForm, ProjectIssueForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 
-class SearchView(ListView):
+class SearchView(LoginRequiredMixin, ListView):
     model = Issue
     template_name = 'issue/index.html'
     ordering = ['-time_created']
@@ -69,24 +69,40 @@ class IndexView(SearchView):
         return query
 
 
-class IssueView(DetailView):
+class IssueView(UserPassesTestMixin, DetailView):
     template_name = 'issue/issue.html'
     context_object_name = 'issue'
     model = Issue
 
+    permission_required = 'webapp.superuser', 'webapp.change_issue'
 
-class CreateIssueView(LoginRequiredMixin, CreateView):
+    def test_func(self):
+        return self.request.user in self.get_issue().project.users.all() or \
+               self.request.user.has_perm(self.permission_required)
+
+    def get_issue(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Issue, pk=pk)
+
+
+class CreateIssueView(PermissionRequiredMixin, CreateView):
     model = Issue
     template_name = 'issue/create.html'
     form_class = IssueForm
+    permission_required = ['webapp.superuser']
 
     def get_success_url(self):
         return reverse('webapp:issue', kwargs={'pk': self.object.pk})
 
 
-class EditIssueView(LoginRequiredMixin, FormView):
+class EditIssueView(UserPassesTestMixin, FormView):
     template_name = 'issue/update.html'
     form_class = ProjectIssueForm
+    permission_required = 'webapp.superuser', 'webapp.change_issue'
+
+    def test_func(self):
+        return self.request.user in self.get_object().project.users.all() or \
+               self.request.user.has_perm(self.permission_required)
 
     def dispatch(self, request, *args, **kwargs):
         self.issue = self.get_object()
@@ -114,8 +130,17 @@ class EditIssueView(LoginRequiredMixin, FormView):
         return reverse('webapp:issue', kwargs={'pk': self.issue.pk})
 
 
-class DeleteIssueView(LoginRequiredMixin, View):
+class DeleteIssueView(UserPassesTestMixin, View):
     template_name = 'issue/delete.html'
+    permission_required = 'webapp.superuser'
+
+    def test_func(self):
+        return self.request.user in self.get_object().project.users.all() or \
+               self.request.user.has_perm(self.permission_required)
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Issue, pk=pk)
 
     def get(self, request, *args, **kwargs):
         issue = get_object_or_404(Issue, pk=kwargs['pk'])

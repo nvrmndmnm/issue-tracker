@@ -34,6 +34,11 @@ class Issue(models.Model):
     def __str__(self):
         return f"{self.pk} - {self.summary}"
 
+    class Meta:
+        permissions = [
+            ('superuser', 'All operations available')
+        ]
+
 
 class IssueType(models.Model):
     name = models.CharField(max_length=30, verbose_name='Type')
@@ -62,3 +67,8 @@ class Project(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    class Meta:
+        permissions = [
+            ('superuser', 'All operations available')
+        ]
