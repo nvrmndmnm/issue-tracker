@@ -1,5 +1,6 @@
 from django import forms
-from webapp.models import Issue, IssueType, Project, User
+from webapp.models import Issue, IssueType, Project
+from django.contrib.auth import get_user_model
 
 
 class IssueForm(forms.ModelForm):
@@ -21,10 +22,10 @@ class ProjectIssueForm(IssueForm):
 
 
 class ProjectUsersForm(forms.ModelForm):
-    users = forms.ModelMultipleChoiceField(queryset=User.objects.all(),
+    users = forms.ModelMultipleChoiceField(queryset=get_user_model().objects.all(),
                                            widget=forms.CheckboxSelectMultiple,
                                            required=True,
-                                           initial=User.objects.first(),
+                                           initial=get_user_model().objects.first(),
                                            label="Users")
 
     class Meta:
