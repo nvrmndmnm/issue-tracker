@@ -1,0 +1,24 @@
+<table class="table px-4">
+    <thead>
+    <tr>
+        <th scope="col">Key</th>
+        <th scope="col">Name</th>
+        <th scope="col">Start date</th>
+        <th scope="col">Decription</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for project in project_list %}
+        <tr class="entry">
+            <td>
+                <a class="entry-title" href="{% url 'webapp:project' project.pk %}">[PR-{{ project.pk }}]</a>
+            </td>
+            <td>
+                <a class="entry-title" href="{% url 'webapp:project' project.pk %}">{{ project.name }}</a>
+            </td>
+            <td>{{ project.date_started }}</td>
+            <td>{{ project.description|truncatewords:10 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}User {{ user_obj.username }}{% endblock %}
+
+{% block content %}
+    {% include 'partial/filters_column.html' %}
+    <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
+    <div class="wrapper mt-4 ps-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                {% if perms.auth.view_user %}
+                    <a href="{% url 'accounts:profiles' %}">Users</a>
+                {% else %}
+                    Users
+                {% endif %}
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'accounts:profile' user_obj.pk %}">{{ user_obj.username }}</a></li>
+        </ol>
+    </nav>
+    <h2>{{ user_obj.username }}'s profile</h2>
+    <div class="profile d-flex justify-content-between mt-4">
+        <div class="col-details">
+            <p><strong>Username:</strong> {{ user_obj.username }}</p>
+            <p><strong>First name:</strong> {{ user_obj.first_name }}</p>
+            <p><strong>Last name:</strong> {{ user_obj.last_name }}</p>
+            <p><strong>About:</strong> {{ user_obj.profile.about }}</p>
+            <p><strong>Github:</strong> {{ user_obj.profile.github_url }}</p>
+        </div>
+        <div class="col-avatar">
+            {% if user_obj.profile.avatar %}
+                <img src="{{ user_obj.profile.avatar.url }}" width="250" alt="">
+            {% else %}
+                <img src="" width="250" alt="">
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <h4>Projects</h4>
+    {% if user_obj.users.all %}
+        {% include 'partial/project_table.html' with project_list=user_obj.users.all %}
+    {% else %}
+        <p class="mt-4">No active projects yet.</p>
+    {% endif %}
+{% endblock %}
+</div>
+</div>
