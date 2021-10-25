@@ -1,25 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Issue {{ issue.id }} - {{ issue.summary }}{% endblock %}
 {% block content %}
-    <div class="col-lg-2 col-xl-2 col-md-2 ps-4">
-        <div class="filters-heading">
-            <strong>Filters</strong>
-        </div>
-        <ul class="filters-list">
-            <li>
-                <a class="btn-filters" href="{% url 'webapp:issues' %}">All issues</a>
-            </li>
-            <li>
-                <a class="btn-filters" href="{% url 'webapp:issues' %}?status=1">New issues</a>
-            </li>
-            <li>
-                <a class="btn-filters" href="{% url 'webapp:issues' %}?status=2">Open issues</a>
-            </li>
-            <li>
-                <a class="btn-filters" href="{% url 'webapp:issues' %}?status=3">Done issues</a>
-            </li>
-        </ul>
-    </div>
+{% include 'partial/filters_column.html' %}
     <div class="col-lg-10 col-xl-10 col-md-10 ps-4 border-start border-2">
         <div class="wrapper mt-4 ps-4">
             <nav aria-label="breadcrumb">

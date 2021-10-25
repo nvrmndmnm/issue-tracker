@@ -1,0 +1,19 @@
+<div class="col-lg-2 col-xl-2 col-md-2 ps-4">
+    <div class="filters-heading">
+        <strong>Filters</strong>
+    </div>
+    <ul class="filters-list">
+        <li>
+            <a class="btn-filters" href="{% url 'webapp:issues' %}">All issues</a>
+        </li>
+        <li>
+            <a class="btn-filters" href="{% url 'webapp:issues' %}?status=1">New issues</a>
+        </li>
+        <li>
+            <a class="btn-filters" href="{% url 'webapp:issues' %}?status=2">Open issues</a>
+        </li>
+        <li>
+            <a class="btn-filters" href="{% url 'webapp:issues' %}?status=3">Done issues</a>
+        </li>
+    </ul>
+</div>

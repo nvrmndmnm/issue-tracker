@@ -19,6 +19,9 @@
     <div class="header">
         <a class="btn-logo" href="{% url 'webapp:index' %}"><strong>45|15</strong></a>
         <div class="header-controls d-flex">
+            {% if perms.auth.view_user %}
+                <a class="btn btn-nav text-white me-2" href="{% url 'accounts:profiles' %}">Users</a>
+            {% endif %}
             <a class="btn btn-nav text-white me-2" href="{% url 'webapp:issues' %}">Issues</a>
             <a class="btn btn-nav text-white me-2" href="{% url 'webapp:projects' %}">Projects</a>
             {% if perms.webapp.superuser %}
@@ -26,7 +29,8 @@
             {% endif %}
             {% include "partial/search_form.html" %}
             {% if  user.is_authenticated %}
-                <span class="text-white align-self-center ms-2">{{ user.username }}</span>
+                <a class="btn text-white text-decoration-underline ms-2"
+                   href="{% url 'accounts:profile' user.pk %}">{{ user.username }}</a>
                 <a class="btn text-white text-decoration-underline" href="{% url 'accounts:logout' %}">Logout</a>
             {% else %}
                 <a class="btn text-white text-decoration-underline ms-3 px-1"
