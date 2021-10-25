@@ -19,26 +19,9 @@
                 <p><strong>Description: </strong>{{ project.description }}</p>
                 <p><strong>Users: </strong>{{ project.users.all|join:", " }}</p>
                 {% if perms.webapp.change_project and user in project.users.all or perms.webapp.superuser %}
-                <a href="#"
-                   class="text-decoration-underline" data-bs-toggle="modal"
-                   data-bs-target="#modal_add_users">+ Update users</a>
+                    <a href="{% url 'webapp:update_project_users' project.pk %}"
+                       class="text-decoration-underline">+ Update users</a>
                 {% endif %}
-                <div class="modal fade" id="modal_add_users" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content px-5 py-4">
-                            <h4 class="text-center">Edit project users</h4>
-                            <hr class="mb-4">
-                            <form action="{% url 'webapp:update_project_users' project_pk %}" method="post">
-                                {% csrf_token %}
-                                {{ form.as_p }}
-                                <div class="form-buttons d-flex justify-content-center">
-                                    <button class="btn form-btn me-3" type="submit">Update</button>
-                                    <button class="btn form-btn" type="button" data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

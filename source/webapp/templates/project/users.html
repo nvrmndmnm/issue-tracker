@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Update users{% endblock %}
+{% block content %}
+    <div class="form-wrapper mx-auto mt-4">
+        <h2>Update project users</h2>
+        <hr class="mb-4">
+        <form method="POST" action="" novalidate>
+            {% include "partial/issue_form.html" with button_text="Update" project_pk=project_pk %}
+        </form>
+    </div>
+{% endblock %}

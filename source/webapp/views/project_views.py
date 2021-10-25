@@ -93,7 +93,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
 class UpdateProjectUsersView(UserPassesTestMixin, UpdateView):
     model = Project
     form_class = ProjectUsersForm
-    template_name = 'partial/issue_form.html'
+    template_name = 'project/users.html'
     permission_required = ['webapp.change_project', 'webapp.superuser']
 
     def test_func(self):
@@ -108,7 +108,8 @@ class UpdateProjectUsersView(UserPassesTestMixin, UpdateView):
         self.project = form.save()
         if self.request.user not in self.project.users.all():
             self.project.users.add(self.request.user)
-            raise PermissionError('Cannot remove yourself from the project.')
+            form.add_error('users', 'Cannot remove yourself.')
+            return super().form_invalid(form)
         return super().form_valid(form)
 
     def get_success_url(self):
