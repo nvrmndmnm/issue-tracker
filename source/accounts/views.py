@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.core.paginator import Paginator
 
-from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm, PasswordUpdateForm
 from .models import Profile
 
 
@@ -99,3 +99,13 @@ class UserUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('accounts:profile', kwargs={'pk': self.object.pk})
+
+
+class UserPasswordUpdateView(UpdateView):
+    model = get_user_model()
+    template_name = 'update_password.html'
+    form_class = PasswordUpdateForm
+    context_object_name = 'user_obj'
+
+    def get_success_url(self):
+        return reverse('accounts:login')

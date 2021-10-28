@@ -22,7 +22,7 @@
         <h2>{{ user_obj.username }}'s profile</h2>
         <div class="d-flex flex-column">
             <a href="{% url 'accounts:update' user_obj.pk %}">Update profile</a>
-            <a href="{% url 'accounts:update' user_obj.pk %}">Change password</a>
+            <a href="{% url 'accounts:update_password' user_obj.pk %}">Change password</a>
         </div>
     </div>
     <div class="profile d-flex justify-content-between mt-4">
