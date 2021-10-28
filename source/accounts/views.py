@@ -1,6 +1,7 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin, LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
@@ -61,11 +62,14 @@ class UserDetailView(UserPassesTestMixin, DetailView):
                self.request.user.has_perm(self.permission_required)
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
     template_name = 'update_profile.html'
     context_object_name = 'user_obj'
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
     def get_context_data(self, **kwargs):
         if 'profile_form' not in kwargs:
@@ -101,11 +105,19 @@ class UserUpdateView(UpdateView):
         return reverse('accounts:profile', kwargs={'pk': self.object.pk})
 
 
-class UserPasswordUpdateView(UpdateView):
+class UserPasswordUpdateView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     template_name = 'update_password.html'
     form_class = PasswordUpdateForm
     context_object_name = 'user_obj'
 
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)
+        return HttpResponseRedirect(self.get_success_url())
+
     def get_success_url(self):
-        return reverse('accounts:login')
+        return reverse('accounts:profile', kwargs={'pk': self.object.pk})

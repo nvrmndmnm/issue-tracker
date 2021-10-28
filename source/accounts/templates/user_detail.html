@@ -20,10 +20,12 @@
     </nav>
     <div class="profile-head d-flex justify-content-between">
         <h2>{{ user_obj.username }}'s profile</h2>
-        <div class="d-flex flex-column">
-            <a href="{% url 'accounts:update' user_obj.pk %}">Update profile</a>
-            <a href="{% url 'accounts:update_password' user_obj.pk %}">Change password</a>
-        </div>
+        {% if request.user == user_obj %}
+            <div class="d-flex flex-column">
+                <a href="{% url 'accounts:update' %}">Update profile</a>
+                <a href="{% url 'accounts:update_password' %}">Change password</a>
+            </div>
+        {% endif %}
     </div>
     <div class="profile d-flex justify-content-between mt-4">
         <div class="col-details">
