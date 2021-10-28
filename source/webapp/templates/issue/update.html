@@ -5,7 +5,7 @@
         <h2>Update issue {{ issue.id }}</h2>
         <hr class="mb-4">
         <form method="POST" action="{% url "webapp:edit_issue" issue.pk %}" novalidate>
-            {% include "partial/issue_form.html" with button_text="Update" %}
+            {% include "partial/form.html" with button_text="Update" %}
         </form>
     </div>
 {% endblock %}
