@@ -34,8 +34,6 @@ class SearchView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_query(self):
-        # Для примера тут используется только одно условие поискового запроса,
-        # которое переопределяется в другом представлении
         query = Q(summary__icontains=self.search_value)
         return query
 
@@ -63,8 +61,8 @@ class IndexView(SearchView):
             return self.request.GET.get('status')
 
     def get_query(self):
-        # Метод класса переопределён, поэтому поиск в хэдере глобальный и ищет только по summary,
-        # а поиск в списке задач отфильтрован и ищет ещё по description
+        # Class method is overridden so that searching from header is global and provides results by summary,
+        # while searching from the issues list provides results by description as well
         query = Q(summary__icontains=self.search_value) | Q(description__icontains=self.search_value)
         return query
 
